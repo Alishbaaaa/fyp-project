@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="styles.css">
+  <title>Extractor</title>
+  <script src="popup.js"></script>
+</head>
+<body style="width: 300px;">
+  <main class="app">
+    <div id="page1">
+      <h2>Static Evaluation</h2>
+      <button id="extractUrlButton">Extract URL</button>
+      <h2 style="margin-top: 10px;">Dynamic Evaluation</h2>
+      <h3>Select Website Type</h3>
+      <label class="container">E-commerce
+        <input type="radio" name="websiteType" id="ecommerce" value="ecommerce">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Informational/Educational
+          <input type="radio" name="websiteType" id="informational" value="informational">
+          <span class="checkmark"></span>
+      </label>
+      <!-- <input type="radio" id="lms" name="websiteType" value="lms">
+      <label for="lms">Learning Management System (LMS)</label><br> -->
+      <button id="nextButton" style="margin-top: 10px;">Next</button>
+    </div>
+  </main>
+
+  
+  <!-- home page ecomm-->
+  <main class="app">
+    <div id="page2-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page">Open your homepage and take a screen shot of your website's homepage</h2>
+      <p id="input-1" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-1">
+        <button id="captureButton" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button">Upload</button>
+        <div class="uploaded-image-main">
+          <img id="uploaded-image-main" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- search page ecomm -->
+  <main class="app">
+    <div id="page3-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page">Click on the search bar, and type in a product name. Before you hit enter, capture a screenshot. </h2>
+      <p id="input-2" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-2">
+        <button id="captureButton2" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput2" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button2">Upload</button>
+        <div class="uploaded-image-search">
+          <img id="uploaded-image-search" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- search results ecomm -->
+  <main class="app">
+    <div id="page4-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page">Great! Now that you have search for a product, click on your desired choice from the search results. Take a screenshot here. </h2>
+      <p id="input-3" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-3">
+        <button id="captureButton3" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput3" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button3">Upload</button>
+        <div class="uploaded-image-searchres">
+          <img id="uploaded-image-searchres" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- cart page ecomm -->
+  <main class="app">
+    <div id="page5-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page"> Add the desired item to your shopping bag. Before proceeding to checkout, take a screenshot of your basket. </h2>
+      <p id="input-4" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-4">
+        <button id="captureButton4" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput4" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button4">Upload</button>
+        <div class="uploaded-image-cart">
+          <img id="uploaded-image-cart" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- form page ecomm --> 
+  <main class="app">
+    <div id="page6-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page">After you hit the checkout button, a form will appear. Take a screen of this form. Feel free to upload multiple screenshots in case the form does not fit in one image. </h2>
+      <p id="input-5" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-5">
+        <button id="captureButton5" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput5" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button5">Upload</button>
+        <div class="uploaded-image-form">
+          <img id="uploaded-image-form" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- invalid form page ecomm -->
+  <main class="app">
+    <div id="page7-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page">Before filling out the form, click the continue to shipping/payment button and provide a screenshot of the form. </h2>
+      <p id="input-6" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-6">
+        <button id="captureButton6" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput6" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button6">Upload</button>
+        <div class="uploaded-image-invalid">
+          <img id="uploaded-image-invalid" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- checkout page ecomm -->
+  <main class="app">
+    <div id="page8-ecommerce" style="display: none;">
+      <h2 id="image-page" name="image-page">Now that you have completed the checkout process, feel free to proceed to payment if you're ready to make a purchase. Submit Pictures of any errors you encountered or check none.  </h2>
+      <p id="input-7" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-7">
+        <!-- <button id="captureButton7" style="width: fit-content;">Screenshot</button> -->
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput7" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <label class="container2">None
+          <input type="checkbox" id="error-check">
+          <span class="checkmark2"></span>
+        </label>
+        <button id="submit-button7">Upload</button>
+        <div class="uploaded-image-checkout">
+          <img id="uploaded-image-checkout" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ecomm last -->
+  <main class="app">
+    <p id="ecomm-last" style="display: none;">Your result is being prepared plz wait</p>
+  </main>
+
+  <!-- home page info-->
+  <main class="app">
+    <div id="page2-info" style="display: none;">
+      <h2 id="image-page" name="image-page">Open your homepage and take a screen shot of your website's homepage</h2>
+      <p id="input-8" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-8">
+        <button id="captureButton8" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput8" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button8">Upload</button>
+        <div class="uploaded-info-home">
+          <img id="uploaded-info-home" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- page 3 info-->
+  <main class="app">
+    <div id="page3-info" style="display: none;">
+      <h2 id="image-page" name="image-page">Click on the search bar, and type in a specific article / topic of interest. Alternatively you may explore by clicking on any heading in the navigation bar. Before you hit enter, capture a screenshot.</h2>
+      <p id="input-9" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-9">
+        <button id="captureButton9" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput9" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button9">Upload</button>
+        <div class="uploaded-info-3">
+          <img id="uploaded-info-3" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- page 4 info-->
+  <main class="app">
+    <div id="page4-info" style="display: none;">
+      <h2 id="image-page" name="image-page">Great! Now that you are on your desired page. Take a screenshot here.</h2>
+      <p id="input-10" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-10">
+        <button id="captureButton10" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput10" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button10">Upload</button>
+        <div class="uploaded-info-4">
+          <img id="uploaded-info-4" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- page 5 info-->
+  <main class="app">
+    <div id="page5-info" style="display: none;">
+      <h2 id="image-page" name="image-page">Scroll through the suggestions page and feel free to take multiple screenshots to capture the entire webpage. </h2>
+      <p id="input-11" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-11">
+        <button id="captureButton11" style="width: fit-content;">Screenshot</button>
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput11" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <button id="submit-button11">Upload</button>
+        <div class="uploaded-info-5">
+          <img id="uploaded-info-5" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- page 6 info-->
+  <main class="app">
+    <div id="page6-info" style="display: none;">
+      <h2 id="image-page" name="image-page">Now that you have explored the website, Upload the screenshots of any error encountered or check none and wait for your website evaluation. </h2>
+      <p id="input-12" style="display: none;">uploaded successfully!</p>
+      <div id="input-div-12">
+        <!-- <button id="captureButton7" style="width: fit-content;">Screenshot</button> -->
+        <div class="header">
+          <h2>Upload Images</h2>
+          <div class="server-message"></div>
+        </div>
+        <div class="input-div">
+          <p>Drag & drop images here or <span class="browse">Browse</span></p>
+          <input type="file" id="fileInput12" class="file" accept="image/png, image/jpeg, image/jpg">
+        </div>
+        <label class="container3">None
+          <input type="checkbox" id="error-check2">
+          <span class="checkmark3"></span>
+        </label>
+        <button id="submit-button12">Upload</button>
+        <div class="uploaded-info-6">
+          <img id="uploaded-info-6" src="" alt="Uploaded Image" style="width: 260px; height: auto;">
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <style>
+        #result {
+            margin-left: 50px; /* Add your desired margin value */
+            margin-top: 20px;
+        }
+        .usability-score-container {
+            margin-top: 30px;
+            font-weight: 300;
+            font-size: 18px;
+        }
+        
+        .positive-score {
+            color: green;
+        }
+        
+        .negative-score {
+            color: red;
+        }
+
+        #downloadButton {
+            margin-left: 50px;
+            margin-top: 20px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #downloadMessage {
+            margin-left: 50px;
+            margin-top: 20px;
+            font-weight: 300;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+
+    <!-- Button to download report -->
+    <p id="downloadMessage">
+        For more detailed information click the button below to download the report.
+    </p>
+    <button id="downloadButton">Download Report</button>
+
+    <!-- Include external JavaScript file -->
+    <script src="result_page.js"></script>
+</body>
+</html>
