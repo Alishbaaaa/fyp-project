@@ -12,6 +12,9 @@ from PIL import Image
 app = Flask(__name__)
 CORS(app, supports_credentials=True, methods=["GET", "POST"])
 
+# Dictionary to store results
+dynamicresults = {}
+
 def run_binary_script(url):
 
     # Call the perform_analysis function directly
@@ -60,9 +63,10 @@ def upload_e1():
             predictions = classify_func(model, image_data)  # Call the classification function directly
             print(f'Result from {model_path}: {predictions}')
             results.append(predictions)
-
+        
+        dynamicresults['route1'] = results
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -88,7 +92,7 @@ def upload_e2():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -113,7 +117,7 @@ def upload_e3():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -139,7 +143,7 @@ def upload_e4():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -166,7 +170,7 @@ def upload_e5():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -193,7 +197,7 @@ def upload_e6():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -218,8 +222,9 @@ def upload_e7():
             print(f'Result from {model_path}: {predictions}')
             results.append(predictions)
 
+        dynamicresults['route7'] = results
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -248,7 +253,7 @@ def upload_i1():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -275,7 +280,7 @@ def upload_i2():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -300,7 +305,7 @@ def upload_i3():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -326,7 +331,7 @@ def upload_i4():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
@@ -351,12 +356,28 @@ def upload_i5():
             results.append(predictions)
 
         # Return the results as part of the JSON response
-        return jsonify({'results': results})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
         print(f"Error in upload: {e}")
         return jsonify({'result': 'Error'}) 
 
+# error route 
+@app.route('/new_route', methods=['POST'])
+def new_route():
+    try:
+        print(dynamicresults)
+        return jsonify(dynamicresults)
+
+    except Exception as e:
+        print(f"Error in new_route: {e}")
+        return jsonify({'result': 'Error'})
+
+# Final route to return all results
+@app.route('/finalresults')
+def final_results():
+    print(dynamicresults)
+    return jsonify(dynamicresults)
 
 if __name__ == '__main__':
     app.run(debug=True)
