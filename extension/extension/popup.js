@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(data);
             input1 = true;
             inputDiv1Visible = false;
-            page3EcommerceVisible = true;
+            page8EcommerceVisible = true;
             uploadedImage.src = null;
             // Save the current state
             savePageStates();
@@ -702,8 +702,37 @@ document.addEventListener('DOMContentLoaded', function () {
           // Update the display based on the new state
           showStoredPage();
       }
-  
-      chrome.storage.sync.clear(function() {
+      console.log('making fetch')
+        // Make an AJAX request to fetch the results
+        fetch('http://localhost:5000/finalresults')
+        .then(response => response.json())
+        .then(data => {
+            // Process the results and display them in a popup window
+            console.log(data);
+            const popupWindow = window.open('', 'Results',`width=${screen.width},height=${screen.height}`);
+            const resultList = document.createElement('ul');
+            // Add CSS styles to the <ul> element
+            resultList.style.listStyleType = 'none';
+            resultList.style.padding = '0';
+            resultList.style.margin = '0';
+            for (let route in data) {
+                const resultItem = document.createElement('li');
+                // Add CSS styles to the <li> elements
+                resultItem.style.padding = '10px';
+                resultItem.style.borderBottom = '1px solid #ccc';
+                if (Array.isArray(data[route])) {
+                    resultItem.textContent = `${route}: ${data[route].join(', ')}`;
+                } else {
+                    resultItem.textContent = `${route}: ${data[route].data}`;
+                }
+                resultList.appendChild(resultItem);
+            }
+            popupWindow.document.body.appendChild(resultList);
+        })
+        .catch(error => console.error('Error:', error));
+
+
+        chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
           });
       
@@ -999,6 +1028,30 @@ document.addEventListener('DOMContentLoaded', function () {
               savePageStates();
               // Update the display based on the new state
               showStoredPage();
+
+              // Perform a fetch to a new route
+        fetch('http://localhost:5000/new_route', {
+            method: 'POST',
+            body: JSON.stringify({}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Open a new tab with the extension's HTML page to display the result
+            chrome.tabs.create({
+                url: chrome.runtime.getURL('dynamic_result.html'),
+            }, function (newTab) {
+                // Introduce a delay before sending the message
+                setTimeout(function () {
+                    // Send the result to the newly created tab
+                    chrome.tabs.sendMessage(newTab.id, { action: 'displayResult', result: data.result });
+                }, 2000); // Adjust the delay as needed
+            });
+        })
+        .catch(error => console.error('Error:', error));
           })
           .catch(error => console.error('Error:', error));
       } else if (checkboxChecked) {
@@ -1022,12 +1075,35 @@ document.addEventListener('DOMContentLoaded', function () {
           savePageStates();
           // Update the display based on the new state
           showStoredPage();
+          // Perform a fetch to a new route
+        fetch('http://localhost:5000/new_route', {
+            method: 'POST',
+            body: JSON.stringify({}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Open a new tab with the extension's HTML page to display the result
+            chrome.tabs.create({
+                url: chrome.runtime.getURL('dynamic_result.html'),
+            }, function (newTab) {
+                // Introduce a delay before sending the message
+                setTimeout(function () {
+                    // Send the result to the newly created tab
+                    chrome.tabs.sendMessage(newTab.id, { action: 'displayResult', result: data.result });
+                }, 2000); // Adjust the delay as needed
+            });
+        })
+        .catch(error => console.error('Error:', error));
       }
-  
+      
       chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
           });
-      
+          
   });
   
   
