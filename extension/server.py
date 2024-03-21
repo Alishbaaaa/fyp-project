@@ -15,6 +15,18 @@ CORS(app, supports_credentials=True, methods=["GET", "POST"])
 # Dictionary to store results
 dynamicresults = {}
 
+# Dictionary to store feature ratings
+feature_ratings = {
+    'H1': {'Invalid Input': 80, 'Loading Indicator': 20},
+    'H2': {'Skeuomorphic web design': 50, 'Process flows': 50},
+    'H3': {'Back button / arrow': 100, 'Cancel button /arrow': 100, 'Close button / arrow': 100, 'Undo button / arrow': 100},
+    'H4': {'External Consistency': 50, 'Form Fields': 50},
+    'H5': {'Search Suggestions': 45, 'Confirmation Prompts': 10, 'Form Validation': 45},
+    'H6': {'Search Suggestions': 60, 'Tooltips': 40},
+    'H8': {'Aesthetic': 100, 'Messy': 0},
+    'H9': {'Invalid Input': 50, 'Error message': 50}
+}
+
 def run_binary_script(url):
 
     # Call the perform_analysis function directly
@@ -42,8 +54,8 @@ def run_test_script(model, classify_image_func, image_data):
     # Call the classify_image function directly
     predictions = classify_image_func(model, image_data)
     return predictions
-# Ecommerce Websites 
-# Step 1 
+
+# Step 1
 @app.route('/upload_e1', methods=['POST'])
 def upload_e1():
     try:
@@ -57,20 +69,34 @@ def upload_e1():
             ('H8.h5', classify_image_H8)
         ]
 
-        results = []
+        model_ratings = {}
         for model_path, classify_func in models_info:
             model = load_model(model_path)
             predictions = classify_func(model, image_data)  # Call the classification function directly
             print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
+
+            model_rating = 0
+            feature_rating = feature_ratings.get(model_path[:-3], {})  # Get feature ratings for the model
+            print(f'Feature ratings for {model_path[:-3]}: {feature_rating}')  # Debugging line
+            
+            for feature in feature_rating:  # Iterate over feature ratings instead of predictions
+                if feature in predictions:  # Check if the feature is predicted
+                    model_rating += feature_rating[feature]
+                    print(f'Incrementing model rating for {model_path[:-3]} by {feature_rating[feature]}')  # Debugging line
+
+            model_ratings[model_path[:-3]] = model_rating
+
+        # Update dynamicresults with model ratings
+        dynamicresults['route1'] = model_ratings
         
-        dynamicresults['route1'] = results
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
+        # Return the dynamic results as part of the JSON response
+        print(f'Dynamic results: {dynamicresults}')  # Debugging line
+        return jsonify({'dynamicresult': dynamicresults})
 
     except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'})
+        # Handle exceptions
+        return jsonify({'error': str(e)})
+
 # Step 2   
 @app.route('/upload_e2', methods=['POST'])
 def upload_e2():
