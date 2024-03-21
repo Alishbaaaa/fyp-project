@@ -702,39 +702,43 @@ document.addEventListener('DOMContentLoaded', function () {
           // Update the display based on the new state
           showStoredPage();
       }
-      console.log('making fetch')
-        // Make an AJAX request to fetch the results
-        fetch('http://localhost:5000/finalresults')
-        .then(response => response.json())
-        .then(data => {
-            // Process the results and display them in a popup window
-            console.log(data);
-            const popupWindow = window.open('', 'Results',`width=${screen.width},height=${screen.height}`);
-            const resultList = document.createElement('ul');
-            // Add CSS styles to the <ul> element
-            resultList.style.listStyleType = 'none';
-            resultList.style.padding = '0';
-            resultList.style.margin = '0';
-            for (let route in data) {
-                const resultItem = document.createElement('li');
-                // Add CSS styles to the <li> elements
-                resultItem.style.padding = '10px';
-                resultItem.style.borderBottom = '1px solid #ccc';
-                if (Array.isArray(data[route])) {
-                    resultItem.textContent = `${route}: ${data[route].join(', ')}`;
-                } else {
-                    resultItem.textContent = `${route}: ${data[route].data}`;
-                }
-                resultList.appendChild(resultItem);
-            }
-            popupWindow.document.body.appendChild(resultList);
-        })
-        .catch(error => console.error('Error:', error));
-
-
-        chrome.storage.sync.clear(function() {
+      console.log('making fetch');
+      // Make an AJAX request to fetch the results
+      fetch('http://localhost:5000/finalresults')
+          .then(response => response.json())
+          .then(data => {
+              // Process the results and display them in a popup window
+              console.log(data);
+              const popupWindow = window.open('', 'Results', `width=${screen.width},height=${screen.height}`);
+              const resultList = document.createElement('ul');
+              // Add CSS styles to the <ul> element
+              resultList.style.listStyleType = 'none';
+              resultList.style.padding = '0';
+              resultList.style.margin = '0';
+              for (let route in data) {
+                  const resultItem = document.createElement('li');
+                  // Add CSS styles to the <li> elements
+                  resultItem.style.padding = '10px';
+                  resultItem.style.borderBottom = '1px solid #ccc';
+                  resultItem.textContent = `${route}: `;
+                  const routeData = data[route];
+                  const subList = document.createElement('ul');
+                  for (let model in routeData) {
+                      const subItem = document.createElement('li');
+                      subItem.textContent = `${model}: ${routeData[model]}`;
+                      subList.appendChild(subItem);
+                  }
+                  resultItem.appendChild(subList);
+                  resultList.appendChild(resultItem);
+              }
+              popupWindow.document.body.appendChild(resultList);
+          })
+          .catch(error => console.error('Error:', error));
+      
+      chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
-          });
+      });
+      
       
   });
   
