@@ -15,17 +15,18 @@ CORS(app, supports_credentials=True, methods=["GET", "POST"])
 # Dictionary to store results
 dynamicresults = {}
 
-# Dictionary to store feature ratings
+# Dictionary to store feature ratings and found/not-found indicators
 feature_ratings = {
-    'H1': {'Invalid Input': 80, 'Loading Indicator': 20},
-    'H2': {'Skeuomorphic web design': 50, 'Process flows': 50},
-    'H3': {'Back button / arrow': 100, 'Cancel button /arrow': 100, 'Close button / arrow': 100, 'Undo button / arrow': 100},
-    'H4': {'External Consistency': 50, 'Form Fields': 50},
-    'H5': {'Search Suggestions': 45, 'Confirmation Prompts': 10, 'Form Validation': 45},
-    'H6': {'Search Suggestions': 60, 'Tooltips': 40},
-    'H8': {'Aesthetic': 100, 'Messy': 0},
-    'H9': {'Invalid Input': 50, 'Error message': 50}
+    'H1': {'Invalid Input': [80, 0], 'Loading Indicator': [20, 0]},
+    'H2': {'Skeuomorphic web design': [50, 0], 'Process flows': [50, 0]},
+    'H3': {'Back': [25, 0], 'Cancel': [25, 0], 'Close': [25, 0], 'Undo': [25, 0]},
+    'H4': {'External Consistency': [50, 0], 'Form Fields': [50, 0]},
+    'H5': {'Search Suggestions': [45, 0], 'Confirmation Prompts': [10, 0], 'Form Validation': [45, 0]},
+    'H6': {'Search Suggestions': [60, 0], 'Tooltips': [40, 0]},
+    'H8': {'minimalistic': [100, 0], 'messy': [0, 0]},
+    'H9': {'Form-Validation': [50, 0], 'Error-msg': [50, 0]}
 }
+
 
 def run_binary_script(url):
 
@@ -55,206 +56,98 @@ def run_test_script(model, classify_image_func, image_data):
     predictions = classify_image_func(model, image_data)
     return predictions
 
-# Step 1
-@app.route('/upload_e1', methods=['POST'])
-def upload_e1():
+def process_upload(route_name, models_info, file):
     try:
-        file = request.files['file']
         image_data = file.read()
 
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H2.h5', classify_image_H2),
-            ('H4.h5', classify_image_H4),
-            ('H8.h5', classify_image_H8)
-        ]
-
-        model_ratings = {}
+        results = {}
         for model_path, classify_func in models_info:
             model = load_model(model_path)
             predictions = classify_func(model, image_data)  # Call the classification function directly
             print(f'Result from {model_path}: {predictions}')
 
-            model_rating = 0
-            feature_rating = feature_ratings.get(model_path[:-3], {})  # Get feature ratings for the model
-            print(f'Feature ratings for {model_path[:-3]}: {feature_rating}')  # Debugging line
-            
-            for feature in feature_rating:  # Iterate over feature ratings instead of predictions
-                if feature in predictions:  # Check if the feature is predicted
-                    model_rating += feature_rating[feature]
-                    print(f'Incrementing model rating for {model_path[:-3]} by {feature_rating[feature]}')  # Debugging line
+            feature_rating = {}
+            existing_ratings = feature_ratings.get(model_path[:-3], {})  # Existing feature ratings
+            for feature in existing_ratings:
+                # Set the value to 1 if the feature is already 1 or predicted, otherwise set it to 0
+                feature_rating[feature] = 1 if existing_ratings[feature] == 1 or feature in predictions else 0
 
-            model_ratings[model_path[:-3]] = model_rating
+            results[model_path[:-3]] = feature_rating
 
         # Update dynamicresults with model ratings
-        dynamicresults['route1'] = model_ratings
-        
+        dynamicresults[route_name] = results
+
         # Return the dynamic results as part of the JSON response
-        print(f'Dynamic results: {dynamicresults}')  # Debugging line
-        return jsonify({'dynamicresult': dynamicresults})
+        return jsonify({'dynamicresult': results})
 
     except Exception as e:
-        # Handle exceptions
-        return jsonify({'error': str(e)})
+        print(f"Error in upload: {e}")
+        return jsonify({'result': 'Error'})
 
-# Step 2   
+
+@app.route('/upload_e1', methods=['POST'])
+def upload_e1():
+    models_info = [
+        ('H2.h5', classify_image_H2),
+        ('H4.h5', classify_image_H4),
+        ('H8.h5', classify_image_H8)
+    ]
+    return process_upload('route1', models_info, request.files['file'])
+
+
 @app.route('/upload_e2', methods=['POST'])
 def upload_e2():
-    try:
-        file = request.files['file']
-        image_data = file.read()
+    models_info = [
+        ('H5.h5', classify_image_H5),
+        ('H6.h5', classify_image_H6)
+    ]
+    return process_upload('route2', models_info, request.files['file'])
 
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H5.h5', classify_image_H5),
-            ('H6.h5', classify_image_H6)
-        ]
 
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'})   
-# Step 3   
 @app.route('/upload_e3', methods=['POST'])
 def upload_e3():
-    try:
-        file = request.files['file']
-        image_data = file.read()
+    models_info = [
+        ('H2.h5', classify_image_H2)
+    ]
+    return process_upload('route3', models_info, request.files['file'])
 
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H2.h5', classify_image_H2)
-        ]
-
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
 # Step 4  
 @app.route('/upload_e4', methods=['POST'])
 def upload_e4():
-    try:
-        file = request.files['file']
-        image_data = file.read()
+    models_info = [
+        ('H2.h5', classify_image_H2),
+        ('H3.h5', classify_image_H3)
+    ]
+    return process_upload('route4', models_info, request.files['file'])
 
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H2.h5', classify_image_H2),
-            ('H3.h5', classify_image_H3)
-        ]
-
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
 # Step 5   
 @app.route('/upload_e5', methods=['POST'])
 def upload_e5():
-    try:
-        file = request.files['file']
-        image_data = file.read()
+    models_info = [
+        ('H3.h5', classify_image_H3),
+        ('H4.h5', classify_image_H4),
+        ('H6.h5', classify_image_H6)
+    ]
+    return process_upload('route5', models_info, request.files['file'])
 
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H3.h5', classify_image_H3),
-            ('H4.h5', classify_image_H4),
-            ('H6.h5', classify_image_H6)
-        ]
-
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'})            
 # Step 6   
 @app.route('/upload_e6', methods=['POST'])
 def upload_e6():
-    try:
-        file = request.files['file']
-        image_data = file.read()
+    models_info = [
+        ('H1.h5', classify_image_H1),
+        ('H5.h5', classify_image_H5),
+        ('H6.h5', classify_image_H6),
+        ('H9.h5', classify_image_H9)
+    ]
+    return process_upload('route6', models_info, request.files['file'])
 
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H1.h5', classify_image_H1),
-            ('H6.h5', classify_image_H6),
-            ('H9.h5', classify_image_H9)
-        ]
-
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
-
-#Step 7 
+# Step 7   
 @app.route('/upload_e7', methods=['POST'])
 def upload_e7():
-    try:
-        file = request.files['file']
-        image_data = file.read()
-
-        # Model paths and corresponding classify functions
-        models_info = [
-            ('H5.h5', classify_image_H5)
-        ]
-
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        dynamicresults['route7'] = results
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'})      
+    models_info = [
+        ('H5.h5', classify_image_H5)
+    ]
+    return process_upload('route7', models_info, request.files['file'])   
     
 # Media and News Websites 
 # step 1
@@ -403,7 +296,72 @@ def new_route():
 @app.route('/finalresults')
 def final_results():
     print(dynamicresults)
-    return jsonify(dynamicresults)
+
+    # Iterate over each route in dynamic_results
+    for route, models in dynamicresults.items():
+        # Iterate over each model in the current route
+        for model, features in models.items():
+            # Iterate over each feature in the current model
+            for feature, present in features.items():
+                # Check if the feature is present in the feature_ratings dictionary
+                if feature in feature_ratings.get(model, {}):
+                    # Update the feature indicator to 1 if it's found in the current route
+                    if present == 1:
+                        feature_ratings[model][feature][1] = 1
+
+    # Print the updated feature_ratings dictionary
+    print("Updated feature_ratings:")
+    print(feature_ratings)
+
+    # Initialize a dictionary to store the model ratings
+    model_ratings = {}
+
+    # Iterate over each model in the feature_ratings dictionary
+    for model, features in feature_ratings.items():
+        total_rating = 0  # Initialize the total rating for the model
+        total_possible_rating = 0  # Initialize the total possible rating for the model
+        
+        # Iterate over each feature and its rating in the current model
+        for feature, rating_info in features.items():
+            feature_rating, present = rating_info
+            total_possible_rating += feature_rating  # Increment total possible rating by the feature rating
+            
+            # If the feature is present, add its rating to the total rating of the model
+            if present == 1:
+                total_rating += feature_rating
+        
+        # Calculate the model rating as a percentage
+        if total_possible_rating != 0:
+            model_rating = (total_rating / total_possible_rating) * 100
+        else:
+            model_rating = 0  # If no features are present, set model rating to 0
+        
+        # Round the model rating to one decimal place
+        model_rating = round(model_rating, 1)
+        
+        # Store the model rating in the model_ratings dictionary
+        model_ratings[model] = model_rating
+
+    # Print the individual model ratings
+    print("Individual Model Ratings:")
+    for model, rating in model_ratings.items():
+        print(f"{model}: {rating}%")
+
+    # Compute the overall score as the average of all model ratings
+    overall_score = sum(model_ratings.values()) / len(model_ratings)
+
+    # Round the overall score to one decimal place
+    overall_score = round(overall_score, 1)
+
+    # Append the overall score to the model_ratings dictionary
+    model_ratings['Overall Score'] = overall_score
+
+    # Print the overall score
+    print(f"\nOverall Score: {overall_score}%")
+
+    # Return the model ratings and overall score as part of the JSON response
+    return jsonify(model_ratings)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
