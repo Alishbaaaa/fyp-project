@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(data);
             input1 = true;
             inputDiv1Visible = false;
-            page8EcommerceVisible = true;
+            page3EcommerceVisible = true;
             uploadedImage.src = null;
             // Save the current state
             savePageStates();
@@ -707,33 +707,12 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch('http://localhost:5000/finalresults')
           .then(response => response.json())
           .then(data => {
-              // Process the results and display them in a popup window
-              console.log(data);
-              const popupWindow = window.open('', 'Results', `width=${screen.width},height=${screen.height}`);
-              const resultList = document.createElement('ul');
-              // Add CSS styles to the <ul> element
-              resultList.style.listStyleType = 'none';
-              resultList.style.padding = '0';
-              resultList.style.margin = '0';
-              for (let route in data) {
-                  const resultItem = document.createElement('li');
-                  // Add CSS styles to the <li> elements
-                  resultItem.style.padding = '10px';
-                  resultItem.style.borderBottom = '1px solid #ccc';
-                  resultItem.textContent = `${route}: `;
-                  const routeData = data[route];
-                  const subList = document.createElement('ul');
-                  for (let model in routeData) {
-                      const subItem = document.createElement('li');
-                      subItem.textContent = `${model}: ${routeData[model]}`;
-                      subList.appendChild(subItem);
-                  }
-                  resultItem.appendChild(subList);
-                  resultList.appendChild(resultItem);
-              }
-              popupWindow.document.body.appendChild(resultList);
+              // Open dynamic_result.html and pass the data to it
+              const popupWindow = window.open('dynamic_result.html', '_blank'); // Open in new tab
+              popupWindow.data = data; // Pass the data to the opened window
           })
           .catch(error => console.error('Error:', error));
+
       
       chrome.storage.sync.clear(function() {
           console.log("Storage cleared");

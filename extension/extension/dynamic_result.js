@@ -1,18 +1,18 @@
-// dynamic_result.js
-document.addEventListener('DOMContentLoaded', function () {
-    // Retrieve the dynamic results from the message sent by popup.js
-    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        console.log("Message received from popup.js:", request); // Debugging statement to log the message received from popup.js
-        if (request.action === 'displayDynamic') {
-            const results = request.results;
-            console.log('Dynamic Results:', results); // Debugging statement to log the dynamic results
-            // Display the results in the HTML page
-            const resultContainer = document.getElementById('result');
-            for (const [route, result] of Object.entries(results)) {
-                const resultItem = document.createElement('div');
-                resultItem.textContent = `Route: ${route}, Result: ${result}`;
-                resultContainer.appendChild(resultItem);
-            }
-        }
-    });
-});
+// Retrieve the data passed from popup.js
+const data = window.data;
+
+// Process the results and display them in dynamic_result.html
+const resultList = document.getElementById('resultList');
+
+// Loop through each model in the data
+for (let model in data) {
+    const modelItem = document.createElement('li');
+    modelItem.textContent = `${model}: ${data[model]}%`; // Display the model and its rating
+    resultList.appendChild(modelItem); // Append the model item to the result list
+    resultList.appendChild(document.createElement('br')); // Add a line break
+}
+
+// // Display overall score
+// const overallScore = document.createElement('li');
+// overallScore.textContent = `Overall Score: ${data.overall_score}%`; // Display the overall score
+// resultList.appendChild(overallScore); // Append the overall score item to the result list
