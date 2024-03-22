@@ -1011,32 +1011,8 @@ document.addEventListener('DOMContentLoaded', function () {
               savePageStates();
               // Update the display based on the new state
               showStoredPage();
-
-              // Perform a fetch to a new route
-        fetch('http://localhost:5000/new_route', {
-            method: 'POST',
-            body: JSON.stringify({}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Open a new tab with the extension's HTML page to display the result
-            chrome.tabs.create({
-                url: chrome.runtime.getURL('dynamic_result.html'),
-            }, function (newTab) {
-                // Introduce a delay before sending the message
-                setTimeout(function () {
-                    // Send the result to the newly created tab
-                    chrome.tabs.sendMessage(newTab.id, { action: 'displayResult', result: data.result });
-                }, 2000); // Adjust the delay as needed
-            });
-        })
-        .catch(error => console.error('Error:', error));
-          })
-          .catch(error => console.error('Error:', error));
+           })
+           .catch(error => console.error('Error:', error));
       } else if (checkboxChecked) {
           input8 = false;
           input9 = false;
@@ -1058,30 +1034,22 @@ document.addEventListener('DOMContentLoaded', function () {
           savePageStates();
           // Update the display based on the new state
           showStoredPage();
-          // Perform a fetch to a new route
-        fetch('http://localhost:5000/new_route', {
-            method: 'POST',
-            body: JSON.stringify({}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Open a new tab with the extension's HTML page to display the result
-            chrome.tabs.create({
-                url: chrome.runtime.getURL('dynamic_result.html'),
-            }, function (newTab) {
-                // Introduce a delay before sending the message
-                setTimeout(function () {
-                    // Send the result to the newly created tab
-                    chrome.tabs.sendMessage(newTab.id, { action: 'displayResult', result: data.result });
-                }, 2000); // Adjust the delay as needed
-            });
-        })
-        .catch(error => console.error('Error:', error));
       }
+      console.log('making fetch');
+      // Make an AJAX request to fetch the results
+      fetch('http://localhost:5000/finalresults')
+          .then(response => response.json())
+          .then(data => {
+              // Open dynamic_result.html and pass the data to it
+              const popupWindow = window.open('dynamic_result.html', '_blank'); // Open in new tab
+              popupWindow.data = data; // Pass the data to the opened window
+          })
+          .catch(error => console.error('Error:', error));
+
+      
+      chrome.storage.sync.clear(function() {
+          console.log("Storage cleared");
+      });
       
       chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
