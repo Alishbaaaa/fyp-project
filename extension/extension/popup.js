@@ -4,186 +4,319 @@
 //   console.log("Storage cleared");
 // });
 
-document.addEventListener('DOMContentLoaded', function () {
+// Variables to store the show/hide state for each ID
+let page1Visible;
+let page2EcommerceVisible;
+let inputDiv1Visible;
+let input1;
+let page3EcommerceVisible;
+let inputDiv2Visible;
+let input2;
+let page4EcommerceVisible;
+let inputDiv3Visible;
+let input3;
+let page5EcommerceVisible;
+let inputDiv4Visible;
+let input4;
+let page6EcommerceVisible;
+let inputDiv5Visible;
+let input5;
+let page7EcommerceVisible;
+let inputDiv6Visible;
+let input6;
+let page8EcommerceVisible;
+let inputDiv7Visible;
+let input7;
+let page2InfoVisible;
+let inputDiv8Visible;
+let input8;
+let page3InfoVisible;
+let inputDiv9Visible;
+let input9;
+let page4InfoVisible;
+let inputDiv10Visible;
+let input10;
+let page5InfoVisible;
+let inputDiv11Visible;
+let input11;
+let page6InfoVisible;
+let inputDiv12Visible;
+let input12;
+let spinner1;
+let spinner2;
+  let spinner3;
+  let spinner4;
+  let spinner5;
+  let spinner6;
+  let spinner7;
+  let spinner8;
+  let spinner9;
+  let spinner10;
+  let spinner11;
+  let spinner12;
+  let page1;
+  let page2;
+  let page3;
+  let page4;
+  let page5;
+  let page6;
+  let page7;
+  let page8;
+  let page9;
+  let page10;
+  let page11;
+  let page12;
+  let fetchInProgress;
 
+// Function to show the correct page based on stored state
+function showStoredPage() {
+    // Get the stored page states
+    chrome.storage.sync.get(['pageStates'], function (result) {
+        const storedPageStates = result.pageStates || {};
+
+        // Initialize the variables with stored state or default values
+        page1Visible = storedPageStates.page1Visible ?? true;
+        page2EcommerceVisible = storedPageStates.page2EcommerceVisible ?? false;
+        inputDiv1Visible = storedPageStates.inputDiv1Visible ?? true;
+        input1 = storedPageStates.input1 ?? false;
+        page3EcommerceVisible = storedPageStates.page3EcommerceVisible ?? false;
+        inputDiv2Visible = storedPageStates.inputDiv2Visible ?? true;
+        input2 = storedPageStates.input2 ?? false;
+        page4EcommerceVisible = storedPageStates.page4EcommerceVisible ?? false;
+        inputDiv3Visible = storedPageStates.inputDiv3Visible ?? true;
+        input3 = storedPageStates.input3 ?? false;
+        page5EcommerceVisible = storedPageStates.page5EcommerceVisible ?? false;
+        inputDiv4Visible = storedPageStates.inputDiv4Visible ?? true;
+        input4 = storedPageStates.input4 ?? false;
+        page6EcommerceVisible = storedPageStates.page6EcommerceVisible ?? false;
+        inputDiv5Visible = storedPageStates.inputDiv5Visible ?? true;
+        input5 = storedPageStates.input5 ?? false;
+        page7EcommerceVisible = storedPageStates.page7EcommerceVisible ?? false;
+        inputDiv6Visible = storedPageStates.inputDiv6Visible ?? true;
+        input6 = storedPageStates.input6 ?? false;
+        page8EcommerceVisible = storedPageStates.page8EcommerceVisible ?? false;
+        inputDiv7Visible = storedPageStates.inputDiv7Visible ?? true;
+        input7 = storedPageStates.input7 ?? false;
+        page2InfoVisible = storedPageStates.page2InfoVisible ?? false;
+        inputDiv8Visible = storedPageStates.inputDiv8Visible ?? true;
+        input8 = storedPageStates.input8 ?? false;
+        page3InfoVisible = storedPageStates.page3InfoVisible ?? false;
+        inputDiv9Visible = storedPageStates.inputDiv9Visible ?? true;
+        input9 = storedPageStates.input9 ?? false;
+        page4InfoVisible = storedPageStates.page4InfoVisible ?? false;   
+        inputDiv10Visible = storedPageStates.inputDiv10Visible ?? true;
+        input10 = storedPageStates.input10 ?? false;
+        page5InfoVisible = storedPageStates.page5InfoVisible ?? false;
+        inputDiv11Visible = storedPageStates.inputDiv11Visible ?? true;
+        input11 = storedPageStates.input11 ?? false;
+        page6InfoVisible = storedPageStates.page6InfoVisible ?? false;
+        inputDiv12Visible = storedPageStates.inputDiv12Visible ?? true;
+        input12 = storedPageStates.input12 ?? false;
+
+        // Show/hide pages based on stored state
+        document.getElementById('page1').style.display = page1Visible ? 'block' : 'none';
+        document.getElementById('page2-ecommerce').style.display = page2EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-1').style.display = inputDiv1Visible ? 'block' : 'none';
+        document.getElementById('input-1').style.display = input1 ? 'block' : 'none';
+        document.getElementById('page3-ecommerce').style.display = page3EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-2').style.display = inputDiv2Visible ? 'block' : 'none';
+        document.getElementById('input-2').style.display = input2 ? 'block' : 'none';
+        document.getElementById('page4-ecommerce').style.display = page4EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-3').style.display = inputDiv3Visible ? 'block' : 'none';
+        document.getElementById('input-3').style.display = input3 ? 'block' : 'none';
+        document.getElementById('page5-ecommerce').style.display = page5EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-4').style.display = inputDiv4Visible ? 'block' : 'none';
+        document.getElementById('input-4').style.display = input4 ? 'block' : 'none';
+        document.getElementById('page6-ecommerce').style.display = page6EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-5').style.display = inputDiv5Visible ? 'block' : 'none';
+        document.getElementById('input-5').style.display = input5 ? 'block' : 'none';
+        document.getElementById('page7-ecommerce').style.display = page7EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-6').style.display = inputDiv6Visible ? 'block' : 'none';
+        document.getElementById('input-6').style.display = input6 ? 'block' : 'none';
+        document.getElementById('page8-ecommerce').style.display = page8EcommerceVisible ? 'block' : 'none';
+        document.getElementById('input-div-7').style.display = inputDiv7Visible ? 'block' : 'none';
+        document.getElementById('input-7').style.display = input7 ? 'block' : 'none';
+        document.getElementById('page2-info').style.display = page2InfoVisible ? 'block' : 'none';
+        document.getElementById('input-div-8').style.display = inputDiv8Visible ? 'block' : 'none';
+        document.getElementById('input-8').style.display = input8 ? 'block' : 'none';
+        document.getElementById('page3-info').style.display = page3InfoVisible ? 'block' : 'none';
+        document.getElementById('input-div-9').style.display = inputDiv9Visible ? 'block' : 'none';
+        document.getElementById('input-9').style.display = input9 ? 'block' : 'none';
+        document.getElementById('page4-info').style.display = page4InfoVisible ? 'block' : 'none';
+        document.getElementById('input-div-10').style.display = inputDiv10Visible ? 'block' : 'none';
+        document.getElementById('input-10').style.display = input10 ? 'block' : 'none';
+        document.getElementById('page5-info').style.display = page5InfoVisible ? 'block' : 'none';
+        document.getElementById('input-div-11').style.display = inputDiv11Visible ? 'block' : 'none';
+        document.getElementById('input-11').style.display = input11 ? 'block' : 'none';
+        document.getElementById('page6-info').style.display = page6InfoVisible ? 'block' : 'none';
+        document.getElementById('input-div-12').style.display = inputDiv12Visible ? 'block' : 'none';
+        document.getElementById('input-12').style.display = input12 ? 'block' : 'none';
+
+    });
+}
+
+// Function to show the correct page based on stored state
+function showStoredspinner() {
+  // Get the stored page states
+  chrome.storage.sync.get(['pageSpinner'], function (result) {
+      const storedPageSpinner = result.pageSpinner || {};
+
+      // Initialize the variables with stored state or default values
+      spinner1 = storedPageSpinner.spinner1 ?? false;
+      spinner2 = storedPageSpinner.spinner2 ?? false;
+      spinner3 = storedPageSpinner.spinner3 ?? false;
+      spinner4 = storedPageSpinner.spinner4 ?? false;
+      spinner5 = storedPageSpinner.spinner5 ?? false;
+      spinner6 = storedPageSpinner.spinner6 ?? false;
+      spinner7 = storedPageSpinner.spinner7 ?? false;
+      spinner8 = storedPageSpinner.spinner8 ?? false;
+      spinner9 = storedPageSpinner.spinner9 ?? false;
+      spinner10 = storedPageSpinner.spinner10 ?? false;
+      spinner11 = storedPageSpinner.spinner11 ?? false;
+      spinner12 = storedPageSpinner.spinner12 ?? false;
+      page1 = storedPageSpinner.page1 ?? true;
+      page2 = storedPageSpinner.page2 ?? true;
+      page3 = storedPageSpinner.page3 ?? true;
+      page4 = storedPageSpinner.page4 ?? true;
+      page5 = storedPageSpinner.page5 ?? true;
+      page6 = storedPageSpinner.page6 ?? true;
+      page7 = storedPageSpinner.page7 ?? true;
+      page8 = storedPageSpinner.page8 ?? true;
+      page9 = storedPageSpinner.page9 ?? true;
+      page10 = storedPageSpinner.page10 ?? true;
+      page11 = storedPageSpinner.page11 ?? true;
+      page12 = storedPageSpinner.page12 ?? true;
+
+
+      // Show/hide pages based on stored state
+      document.getElementById("loadingSpinner1").style.display = spinner1 ? 'block' : 'none';
+      document.getElementById("loadingSpinner2").style.display = spinner2 ? 'block' : 'none';
+      document.getElementById("loadingSpinner3").style.display = spinner3 ? 'block' : 'none';
+      document.getElementById("loadingSpinner4").style.display = spinner4 ? 'block' : 'none';
+      document.getElementById("loadingSpinner5").style.display = spinner5 ? 'block' : 'none';
+      document.getElementById("loadingSpinner6").style.display = spinner6 ? 'block' : 'none';
+      document.getElementById("loadingSpinner7").style.display = spinner7 ? 'block' : 'none';
+      document.getElementById("loadingSpinner8").style.display = spinner8 ? 'block' : 'none';
+      document.getElementById("loadingSpinner9").style.display = spinner9 ? 'block' : 'none';
+      document.getElementById("loadingSpinner10").style.display = spinner10 ? 'block' : 'none';
+      document.getElementById("loadingSpinner11").style.display = spinner11 ? 'block' : 'none';
+      document.getElementById("loadingSpinner12").style.display = spinner12 ? 'block' : 'none';
+      document.getElementById('image-page1').style.display = page1 ? 'block' : 'none';
+      document.getElementById('image-page2').style.display = page2 ? 'block' : 'none';
+      document.getElementById('image-page3').style.display = page3 ? 'block' : 'none';
+      document.getElementById('image-page4').style.display = page4 ? 'block' : 'none';
+      document.getElementById('image-page5').style.display = page5 ? 'block' : 'none';
+      document.getElementById('image-page6').style.display = page6 ? 'block' : 'none';
+      document.getElementById('image-page7').style.display = page7 ? 'block' : 'none';
+      document.getElementById('image-page8').style.display = page8 ? 'block' : 'none';
+      document.getElementById('image-page9').style.display = page9 ? 'block' : 'none';
+      document.getElementById('image-page10').style.display = page10 ? 'block' : 'none';
+      document.getElementById('image-page11').style.display = page11 ? 'block' : 'none';
+      document.getElementById('image-page12').style.display = page12 ? 'block' : 'none';
+  });
+}
+
+// Function to save the show/hide state for each ID
+function savePageStates() {
+  const pageStates = {
+      page1Visible: page1Visible,
+      page2EcommerceVisible: page2EcommerceVisible,
+      inputDiv1Visible: inputDiv1Visible,
+      input1: input1,
+      page3EcommerceVisible: page3EcommerceVisible,
+      inputDiv2Visible: inputDiv2Visible,
+      input2: input2,
+      page4EcommerceVisible: page4EcommerceVisible,
+      inputDiv3Visible: inputDiv3Visible,
+      input3: input3,
+      page5EcommerceVisible: page5EcommerceVisible,
+      inputDiv4Visible: inputDiv4Visible,
+      input4: input4,
+      page6EcommerceVisible: page6EcommerceVisible,
+      inputDiv5Visible: inputDiv5Visible,
+      input5: input5,
+      page7EcommerceVisible: page7EcommerceVisible,
+      inputDiv6Visible: inputDiv6Visible,
+      input6: input6,
+      page8EcommerceVisible: page8EcommerceVisible,
+      inputDiv7Visible: inputDiv7Visible,
+      input7: input7 ,
+      page2InfoVisible: page2InfoVisible,
+        inputDiv8Visible: inputDiv8Visible,
+        input8: input8,
+        page3InfoVisible: page3InfoVisible,
+        inputDiv9Visible: inputDiv9Visible,
+        input9: input9,
+        page4InfoVisible: page4InfoVisible,
+        inputDiv10Visible: inputDiv10Visible,
+        input10: input10,
+        page5InfoVisible: page5InfoVisible,
+        inputDiv11Visible: inputDiv11Visible,
+        input11: input11,
+        page6InfoVisible: page6InfoVisible,
+        inputDiv12Visible: inputDiv12Visible,
+        input12: input12
+
+  };
+  chrome.storage.sync.set({ pageStates: pageStates }, function() {
+    console.log('Saved page states:', pageStates);
+  });
+}
+
+// Function to save the show/hide state for each ID
+function savePageSpinner() {
+  const pageSpinner = {
+      spinner1: spinner1,
+      spinner2: spinner2,
+      spinner3: spinner3,
+      spinner4: spinner4,
+      spinner5: spinner5,
+      spinner6: spinner6,
+      spinner7: spinner7,
+      spinner8: spinner8,
+      spinner9: spinner9,
+      spinner10: spinner10,
+      spinner11: spinner11,
+      spinner12: spinner12,
+      page1: page1,
+      page2: page2,
+      page3: page3,
+      page4: page4,
+      page5: page5,
+      page6: page6,
+      page7: page7,
+      page8: page8,
+      page9: page9,
+      page10: page10,
+      page11: page11,
+      page12: page12
+  };
+  chrome.storage.sync.set({ pageSpinner: pageSpinner }, function() {
+    console.log('Saved page spinner:', pageSpinner);
+  });
+}
+
+// Save the state of all spinners and pages when the popup is closed
+window.addEventListener('beforeunload', function() {
+    if (fetchInProgress) {
+        // Cancel the event
+        e.preventDefault();
+        // Chrome requires returnValue to be set
+        e.returnValue = '';
+    }
+    savePageSpinner();
+    savePageStates();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    showStoredPage();
+    showStoredspinner();
     document.getElementById('extractUrlButton').addEventListener('click', function () {
           chrome.runtime.sendMessage({ action: 'extractUrl' });
         });
     let websiteType = '';
     let imageFile = null;
-  
-  // Variables to store the show/hide state for each ID
-  let page1Visible;
-  let page2EcommerceVisible;
-  let inputDiv1Visible;
-  let input1;
-  let page3EcommerceVisible;
-  let inputDiv2Visible;
-  let input2;
-  let page4EcommerceVisible;
-  let inputDiv3Visible;
-  let input3;
-  let page5EcommerceVisible;
-  let inputDiv4Visible;
-  let input4;
-  let page6EcommerceVisible;
-  let inputDiv5Visible;
-  let input5;
-  let page7EcommerceVisible;
-  let inputDiv6Visible;
-  let input6;
-  let page8EcommerceVisible;
-  let inputDiv7Visible;
-  let input7;
-  let page2InfoVisible;
-  let inputDiv8Visible;
-  let input8;
-  let page3InfoVisible;
-  let inputDiv9Visible;
-  let input9;
-  let page4InfoVisible;
-  let inputDiv10Visible;
-  let input10;
-  let page5InfoVisible;
-  let inputDiv11Visible;
-  let input11;
-  let page6InfoVisible;
-  let inputDiv12Visible;
-  let input12;
-  
-  // Function to show the correct page based on stored state
-  function showStoredPage() {
-      // Get the stored page states
-      chrome.storage.sync.get(['pageStates'], function (result) {
-          const storedPageStates = result.pageStates || {};
-  
-          // Initialize the variables with stored state or default values
-          page1Visible = storedPageStates.page1Visible ?? true;
-          page2EcommerceVisible = storedPageStates.page2EcommerceVisible ?? false;
-          inputDiv1Visible = storedPageStates.inputDiv1Visible ?? true;
-          input1 = storedPageStates.input1 ?? false;
-          page3EcommerceVisible = storedPageStates.page3EcommerceVisible ?? false;
-          inputDiv2Visible = storedPageStates.inputDiv2Visible ?? true;
-          input2 = storedPageStates.input2 ?? false;
-          page4EcommerceVisible = storedPageStates.page4EcommerceVisible ?? false;
-          inputDiv3Visible = storedPageStates.inputDiv3Visible ?? true;
-          input3 = storedPageStates.input3 ?? false;
-          page5EcommerceVisible = storedPageStates.page5EcommerceVisible ?? false;
-          inputDiv4Visible = storedPageStates.inputDiv4Visible ?? true;
-          input4 = storedPageStates.input4 ?? false;
-          page6EcommerceVisible = storedPageStates.page6EcommerceVisible ?? false;
-          inputDiv5Visible = storedPageStates.inputDiv5Visible ?? true;
-          input5 = storedPageStates.input5 ?? false;
-          page7EcommerceVisible = storedPageStates.page7EcommerceVisible ?? false;
-          inputDiv6Visible = storedPageStates.inputDiv6Visible ?? true;
-          input6 = storedPageStates.input6 ?? false;
-          page8EcommerceVisible = storedPageStates.page8EcommerceVisible ?? false;
-          inputDiv7Visible = storedPageStates.inputDiv7Visible ?? true;
-          input7 = storedPageStates.input7 ?? false;
-          page2InfoVisible = storedPageStates.page2InfoVisible ?? false;
-          inputDiv8Visible = storedPageStates.inputDiv8Visible ?? true;
-          input8 = storedPageStates.input8 ?? false;
-          page3InfoVisible = storedPageStates.page3InfoVisible ?? false;
-          inputDiv9Visible = storedPageStates.inputDiv9Visible ?? true;
-          input9 = storedPageStates.input9 ?? false;
-          page4InfoVisible = storedPageStates.page4InfoVisible ?? false;   
-          inputDiv10Visible = storedPageStates.inputDiv10Visible ?? true;
-          input10 = storedPageStates.input10 ?? false;
-          page5InfoVisible = storedPageStates.page5InfoVisible ?? false;
-          inputDiv11Visible = storedPageStates.inputDiv11Visible ?? true;
-          input11 = storedPageStates.input11 ?? false;
-          page6InfoVisible = storedPageStates.page6InfoVisible ?? false;
-          inputDiv12Visible = storedPageStates.inputDiv12Visible ?? true;
-          input12 = storedPageStates.input12 ?? false;
-  
-          // Show/hide pages based on stored state
-          document.getElementById('page1').style.display = page1Visible ? 'block' : 'none';
-          document.getElementById('page2-ecommerce').style.display = page2EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-1').style.display = inputDiv1Visible ? 'block' : 'none';
-          document.getElementById('input-1').style.display = input1 ? 'block' : 'none';
-          document.getElementById('page3-ecommerce').style.display = page3EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-2').style.display = inputDiv2Visible ? 'block' : 'none';
-          document.getElementById('input-2').style.display = input2 ? 'block' : 'none';
-          document.getElementById('page4-ecommerce').style.display = page4EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-3').style.display = inputDiv3Visible ? 'block' : 'none';
-          document.getElementById('input-3').style.display = input3 ? 'block' : 'none';
-          document.getElementById('page5-ecommerce').style.display = page5EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-4').style.display = inputDiv4Visible ? 'block' : 'none';
-          document.getElementById('input-4').style.display = input4 ? 'block' : 'none';
-          document.getElementById('page6-ecommerce').style.display = page6EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-5').style.display = inputDiv5Visible ? 'block' : 'none';
-          document.getElementById('input-5').style.display = input5 ? 'block' : 'none';
-          document.getElementById('page7-ecommerce').style.display = page7EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-6').style.display = inputDiv6Visible ? 'block' : 'none';
-          document.getElementById('input-6').style.display = input6 ? 'block' : 'none';
-          document.getElementById('page8-ecommerce').style.display = page8EcommerceVisible ? 'block' : 'none';
-          document.getElementById('input-div-7').style.display = inputDiv7Visible ? 'block' : 'none';
-          document.getElementById('input-7').style.display = input7 ? 'block' : 'none';
-          document.getElementById('page2-info').style.display = page2InfoVisible ? 'block' : 'none';
-          document.getElementById('input-div-8').style.display = inputDiv8Visible ? 'block' : 'none';
-          document.getElementById('input-8').style.display = input8 ? 'block' : 'none';
-          document.getElementById('page3-info').style.display = page3InfoVisible ? 'block' : 'none';
-          document.getElementById('input-div-9').style.display = inputDiv9Visible ? 'block' : 'none';
-          document.getElementById('input-9').style.display = input9 ? 'block' : 'none';
-          document.getElementById('page4-info').style.display = page4InfoVisible ? 'block' : 'none';
-          document.getElementById('input-div-10').style.display = inputDiv10Visible ? 'block' : 'none';
-          document.getElementById('input-10').style.display = input10 ? 'block' : 'none';
-          document.getElementById('page5-info').style.display = page5InfoVisible ? 'block' : 'none';
-          document.getElementById('input-div-11').style.display = inputDiv11Visible ? 'block' : 'none';
-          document.getElementById('input-11').style.display = input11 ? 'block' : 'none';
-          document.getElementById('page6-info').style.display = page6InfoVisible ? 'block' : 'none';
-          document.getElementById('input-div-12').style.display = inputDiv12Visible ? 'block' : 'none';
-          document.getElementById('input-12').style.display = input12 ? 'block' : 'none';
-  
-      });
-  }
-  
-  // Function to save the show/hide state for each ID
-  function savePageStates() {
-    const pageStates = {
-        page1Visible: page1Visible,
-        page2EcommerceVisible: page2EcommerceVisible,
-        inputDiv1Visible: inputDiv1Visible,
-        input1: input1,
-        page3EcommerceVisible: page3EcommerceVisible,
-        inputDiv2Visible: inputDiv2Visible,
-        input2: input2,
-        page4EcommerceVisible: page4EcommerceVisible,
-        inputDiv3Visible: inputDiv3Visible,
-        input3: input3,
-        page5EcommerceVisible: page5EcommerceVisible,
-        inputDiv4Visible: inputDiv4Visible,
-        input4: input4,
-        page6EcommerceVisible: page6EcommerceVisible,
-        inputDiv5Visible: inputDiv5Visible,
-        input5: input5,
-        page7EcommerceVisible: page7EcommerceVisible,
-        inputDiv6Visible: inputDiv6Visible,
-        input6: input6,
-        page8EcommerceVisible: page8EcommerceVisible,
-        inputDiv7Visible: inputDiv7Visible,
-        input7: input7 ,
-        page2InfoVisible: page2InfoVisible,
-          inputDiv8Visible: inputDiv8Visible,
-          input8: input8,
-          page3InfoVisible: page3InfoVisible,
-          inputDiv9Visible: inputDiv9Visible,
-          input9: input9,
-          page4InfoVisible: page4InfoVisible,
-          inputDiv10Visible: inputDiv10Visible,
-          input10: input10,
-          page5InfoVisible: page5InfoVisible,
-          inputDiv11Visible: inputDiv11Visible,
-          input11: input11,
-          page6InfoVisible: page6InfoVisible,
-          inputDiv12Visible: inputDiv12Visible,
-          input12: input12
-  
-    };
-    chrome.storage.sync.set({ pageStates: pageStates }, function() {
-      console.log('Saved page states:', pageStates);
-    });
-  }
+
   
   // Next button click event to show page 2
   document.getElementById('nextButton').addEventListener('click', function () {
@@ -281,6 +414,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     submitButton.addEventListener('click', function () {
+        fetchInProgress = true;
+        inputDiv1Visible = false;
+        spinner1 = true;
+        savePageSpinner();
+        savePageStates();
+        showStoredPage();
+        showStoredspinner();
         var formData = new FormData();
   
         if (captureDataUrl) {
@@ -291,24 +431,35 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('No file or screenshot to upload');
             return;
         }
-  
         fetch('http://localhost:5000/upload_e1', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            // Update fetchInProgress when fetch completes
+            fetchInProgress = false;
+            return response.json();
+        })
         .then(data => {
             console.log(data);
-            input1 = true;
             inputDiv1Visible = false;
+            page2EcommerceVisible = false;
             page3EcommerceVisible = true;
             uploadedImage.src = null;
+            spinner1 = false;
+            page1 = false;
             // Save the current state
+            savePageSpinner();
             savePageStates();
             // Update the display based on the new state
+            showStoredspinner();
             showStoredPage();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle fetch error
+            fetchInProgress = false;
+            console.error('Fetch error:', error);
+        });
     });
   
     function dataURLtoFile(dataUrl, filename) {
@@ -351,6 +502,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   submitButton2.addEventListener('click', function () {
+    fetchInProgress = true;
+    inputDiv2Visible = false;
+    spinner2 = true;
+    savePageSpinner();
+    savePageStates();
+    showStoredPage();
+    showStoredspinner();
       var formData = new FormData();
   
       if (captureDataUrl) {
@@ -366,19 +524,32 @@ document.addEventListener('DOMContentLoaded', function () {
           method: 'POST',
           body: formData
       })
-      .then(response => response.json())
+      .then(response => {
+        // Update fetchInProgress when fetch completes
+        fetchInProgress = false;
+        return response.json();
+      })
       .then(data => {
           console.log(data);
-          input2 = true;
+          
           inputDiv2Visible = false;
+          page3EcommerceVisible = false;
           page4EcommerceVisible = true;
           uploadedImage2.src = null;
+          spinner2 = false;
+          page2 = false;
           // Save the current state
+          savePageSpinner();
           savePageStates();
           // Update the display based on the new state
+          showStoredspinner();
           showStoredPage();
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+          // Handle fetch error
+          fetchInProgress = false;
+          console.error('Fetch error:', error);
+      });
   });
   
   
@@ -410,6 +581,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     submitButton3.addEventListener('click', function () {
+        fetchInProgress = true;
+        inputDiv3Visible = false;
+        spinner3 = true;
+        savePageSpinner();
+        savePageStates();
+        showStoredPage();
+        showStoredspinner();
         var formData = new FormData();
   
         if (captureDataUrl) {
@@ -425,19 +603,32 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+          // Update fetchInProgress when fetch completes
+          fetchInProgress = false;
+          return response.json();
+        })
         .then(data => {
             console.log(data);
-            input3 = true;
+            
             inputDiv3Visible = false;
+            page4EcommerceVisible = false;
             page5EcommerceVisible = true;
             uploadedImage3.src = null;
+            spinner3 = false;
+            page3 = false;
             // Save the current state
+            savePageSpinner();
             savePageStates();
             // Update the display based on the new state
+            showStoredspinner();
             showStoredPage();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle fetch error
+            fetchInProgress = false;
+            console.error('Fetch error:', error);
+        });
     });
   
   //page 5 ecommerce 
@@ -468,6 +659,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   submitButton4.addEventListener('click', function () {
+    fetchInProgress = true;
+    inputDiv4Visible = false;
+    spinner4 = true;
+    savePageSpinner();
+    savePageStates();
+    showStoredPage();
+    showStoredspinner();
       var formData = new FormData();
   
       if (captureDataUrl4) {
@@ -483,19 +681,32 @@ document.addEventListener('DOMContentLoaded', function () {
           method: 'POST',
           body: formData
       })
-      .then(response => response.json())
+      .then(response => {
+        // Update fetchInProgress when fetch completes
+        fetchInProgress = false;
+        return response.json();
+      })
       .then(data => {
           console.log(data);
-          input4 = true;
+          
           inputDiv4Visible = false;
+          page5EcommerceVisible = false;
           page6EcommerceVisible = true; // Assuming you want to hide page 5 after submission
           uploadedImage4.src = null;
+          spinner4 = false;
+          page4 = false;
           // Save the current state
+          savePageSpinner();
           savePageStates();
           // Update the display based on the new state
+          showStoredspinner();
           showStoredPage();
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+          // Handle fetch error
+          fetchInProgress = false;
+          console.error('Fetch error:', error);
+      });
   });
   
   
@@ -527,6 +738,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   submitButton5.addEventListener('click', function () {
+    fetchInProgress = true;
+    inputDiv5Visible = false;
+    spinner5 = true;
+    savePageSpinner();
+    savePageStates();
+    showStoredPage();
+    showStoredspinner();
       var formData = new FormData();
   
       if (captureDataUrl5) {
@@ -542,20 +760,33 @@ document.addEventListener('DOMContentLoaded', function () {
           method: 'POST',
           body: formData
       })
-      .then(response => response.json())
+      .then(response => {
+        // Update fetchInProgress when fetch completes
+        fetchInProgress = false;
+        return response.json();
+      })
       .then(data => {
           console.log(data);
-          input5 = true;
+          
           inputDiv5Visible = false;
           // Assuming you want to hide page 6 after submission
+          page6EcommerceVisible = false;
           page7EcommerceVisible = true;
           uploadedImage5.src = null;
+          spinner5 = false;
+          page5 = false;
           // Save the current state
+          savePageSpinner();
           savePageStates();
           // Update the display based on the new state
+          showStoredspinner();
           showStoredPage();
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+          // Handle fetch error
+          fetchInProgress = false;
+          console.error('Fetch error:', error);
+      });
   });
   
   
@@ -587,6 +818,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   submitButton6.addEventListener('click', function () {
+    fetchInProgress = true;
+    inputDiv6Visible = false;
+    spinner6 = true;
+    savePageSpinner();
+    savePageStates();
+    showStoredPage();
+    showStoredspinner();
       var formData = new FormData();
   
       if (captureDataUrl6) {
@@ -602,20 +840,33 @@ document.addEventListener('DOMContentLoaded', function () {
           method: 'POST',
           body: formData
       })
-      .then(response => response.json())
+      .then(response => {
+        // Update fetchInProgress when fetch completes
+        fetchInProgress = false;
+        return response.json();
+      })
       .then(data => {
           console.log(data);
-          input6 = true;
+          
           inputDiv6Visible = false;
           // Assuming you want to hide page 7 after submission
+          page7EcommerceVisible = false;
           page8EcommerceVisible = true;
           uploadedImage6.src = null;
+          spinner6 = false;
+          page6 = false;
           // Save the current state
+          savePageSpinner();
           savePageStates();
           // Update the display based on the new state
+          showStoredspinner();
           showStoredPage();
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+          // Handle fetch error
+          fetchInProgress = false;
+          console.error('Fetch error:', error);
+      });
   });
   
   
@@ -641,6 +892,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   submitButton7.addEventListener('click', function () {
+    fetchInProgress = true;
+    inputDiv7Visible = false;
+    spinner7 = true;
+    savePageSpinner();
+    savePageStates();
+    showStoredPage();
+    showStoredspinner();
       var formData = new FormData();
       var checkboxChecked = checkbox7.checked;
       console.log('checkbox state ',checkboxChecked);
@@ -656,7 +914,11 @@ document.addEventListener('DOMContentLoaded', function () {
               method: 'POST',
               body: formData
           })
-          .then(response => response.json())
+          .then(response => {
+            // Update fetchInProgress when fetch completes
+            fetchInProgress = false;
+            return response.json();
+          })
           .then(data => {
               console.log(data);
               input1 = false;
@@ -666,15 +928,31 @@ document.addEventListener('DOMContentLoaded', function () {
               input5 = false;
               input6 = false;
               input7 = false;
+              page1Visible = false;
+              page2EcommerceVisible = false;
+              page3EcommerceVisible = false;
+              page4EcommerceVisible = false;
+              page5EcommerceVisible = false;
+              page6EcommerceVisible = false;
+              page7EcommerceVisible = false;
+              page8EcommerceVisible = false;
               inputDiv7Visible = false;
               uploadedImage7.src = null;
               document.getElementById("ecomm-last").style.display = "block";
+              spinner7 = false;
+              page7 = false;
               // Save the current state
+              savePageSpinner();
               savePageStates();
               // Update the display based on the new state
+              showStoredspinner();
               showStoredPage();
           })
-          .catch(error => console.error('Error:', error));
+          .catch(error => {
+              // Handle fetch error
+              fetchInProgress = false;
+              console.error('Fetch error:', error);
+          });
       } else if (checkboxChecked) {
           input1 = false;
           input2 = false;
@@ -702,22 +980,54 @@ document.addEventListener('DOMContentLoaded', function () {
           // Update the display based on the new state
           showStoredPage();
       }
-      console.log('making fetch');
-      // Make an AJAX request to fetch the results
-      fetch('http://localhost:5000/finalresults')
-          .then(response => response.json())
-          .then(data => {
-              // Open dynamic_result.html and pass the data to it
-              const popupWindow = window.open('dynamic_result.html', '_blank'); // Open in new tab
-              popupWindow.data = data; // Pass the data to the opened window
-          })
-          .catch(error => console.error('Error:', error));
+      console.log('making fetch')
+        // Make an AJAX request to fetch the results
+        // fetch('http://localhost:5000/finalresults')
+        // .then(response => response.json())
+        // .then(data => {
+        //     // Process the results and display them in a popup window
+        //     console.log(data);
+        //     const popupWindow = window.open('', 'Results',`width=${screen.width},height=${screen.height}`);
+        //     const resultList = document.createElement('ul');
+        //     // Add CSS styles to the <ul> element
+        //     resultList.style.listStyleType = 'none';
+        //     resultList.style.padding = '0';
+        //     resultList.style.margin = '0';
+        //     for (let route in data) {
+        //         const resultItem = document.createElement('li');
+        //         // Add CSS styles to the <li> elements
+        //         resultItem.style.padding = '10px';
+        //         resultItem.style.borderBottom = '1px solid #ccc';
+        //         if (Array.isArray(data[route])) {
+        //             resultItem.textContent = `${route}: ${data[route].join(', ')}`;
+        //         } else {
+        //             resultItem.textContent = `${route}: ${data[route].data}`;
+        //         }
+        //         resultList.appendChild(resultItem);
+        //     }
+        //     popupWindow.document.body.appendChild(resultList);
+        //     // Combine all results into a single array
+        //     const allResults = Object.values(data).flat();
 
-      
-      chrome.storage.sync.clear(function() {
+        //     const resultText = document.createElement('p');
+        //     resultText.textContent = allResults.join(', ');
+        //     popupWindow.document.body.appendChild(resultText);
+        // })
+        // .catch(error => console.error('Error:', error));
+
+        // Make an AJAX request to fetch the results
+        fetch('http://localhost:5000/finalresults')
+        .then(response => response.json())
+        .then(data => {
+            // Open dynamic_result.html and pass the data to it
+            const popupWindow = window.open('dynamic_result.html', '_blank'); // Open in new tab
+            popupWindow.data = data; // Pass the data to the opened window
+        })
+        .catch(error => console.error('Error:', error));
+
+        chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
-      });
-      
+          });
       
   });
   
@@ -750,6 +1060,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     submitButton8.addEventListener('click', function () {
+        fetchInProgress = true;
+        inputDiv8Visible = false;
+        spinner8 = true;
+        savePageSpinner();
+        savePageStates();
+        showStoredPage();
+        showStoredspinner();
         var formData = new FormData();
   
         if (captureDataUrl8) {
@@ -765,19 +1082,32 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+          // Update fetchInProgress when fetch completes
+          fetchInProgress = false;
+          return response.json();
+        })
         .then(data => {
             console.log(data);
-            input8 = true;
+            
             inputDiv8Visible = false;
+            page2InfoVisible = false;
             page3InfoVisible = true;
             uploadedImage8.src = null;
+            spinner8 = false;
+            page8 = false;
             // Save the current state
+            savePageSpinner();
             savePageStates();
             // Update the display based on the new state
+            showStoredspinner();
             showStoredPage();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle fetch error
+            fetchInProgress = false;
+            console.error('Fetch error:', error);
+        });
     });
   
   
@@ -809,6 +1139,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     submitButton9.addEventListener('click', function () {
+        fetchInProgress = true;
+        inputDiv9Visible = false;
+        spinner9 = true;
+        savePageSpinner();
+        savePageStates();
+        showStoredPage();
+        showStoredspinner();
         var formData = new FormData();
   
         if (captureDataUrl9) {
@@ -824,19 +1161,32 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+          // Update fetchInProgress when fetch completes
+          fetchInProgress = false;
+          return response.json();
+        })
         .then(data => {
             console.log(data);
-            input9 = true;
+            
             inputDiv9Visible = false;
+            page3InfoVisible = false;
             page4InfoVisible = true;
             uploadedImage9.src = null;
+            spinner9 = false;
+            page9 = false;
             // Save the current state
+            savePageSpinner();
             savePageStates();
             // Update the display based on the new state
+            showStoredspinner();
             showStoredPage();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle fetch error
+            fetchInProgress = false;
+            console.error('Fetch error:', error);
+        });
     });
   
   
@@ -868,6 +1218,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     submitButton10.addEventListener('click', function () {
+        fetchInProgress = true;
+        inputDiv10Visible = false;
+        spinner10 = true;
+        savePageSpinner();
+        savePageStates();
+        showStoredPage();
+        showStoredspinner();
         var formData = new FormData();
   
         if (captureDataUrl10) {
@@ -883,19 +1240,32 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+          // Update fetchInProgress when fetch completes
+          fetchInProgress = false;
+          return response.json();
+        })
         .then(data => {
             console.log(data);
-            input10 = true;
+            
             inputDiv10Visible = false;
+            page4InfoVisible = false;
             page5InfoVisible = true;
             uploadedImage10.src = null;
+            spinner10 = false;
+            page10 = false;
             // Save the current state
+            savePageSpinner();
             savePageStates();
             // Update the display based on the new state
+            showStoredspinner();
             showStoredPage();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle fetch error
+            fetchInProgress = false;
+            console.error('Fetch error:', error);
+        });
     });
   
   
@@ -927,6 +1297,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     submitButton11.addEventListener('click', function () {
+        fetchInProgress = true;
+        inputDiv11Visible = false;
+        spinner11 = true;
+        savePageSpinner();
+        savePageStates();
+        showStoredPage();
+        showStoredspinner();
         var formData = new FormData();
   
         if (captureDataUrl11) {
@@ -942,19 +1319,32 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+          // Update fetchInProgress when fetch completes
+          fetchInProgress = false;
+          return response.json();
+        })
         .then(data => {
             console.log(data);
-            input11 = true;
+            
             inputDiv11Visible = false;
+            page5InfoVisible = false;
             page6InfoVisible = true;
             uploadedImage11.src = null;
+            spinner11 = false;
+            page11 = false;
             // Save the current state
+            savePageSpinner();
             savePageStates();
             // Update the display based on the new state
+            showStoredspinner();
             showStoredPage();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Handle fetch error
+            fetchInProgress = false;
+            console.error('Fetch error:', error);
+        });
     });
   
   
@@ -981,6 +1371,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   submitButton12.addEventListener('click', function () {
+    fetchInProgress = true;
+    inputDiv12Visible = false;
+    spinner12 = true;
+    savePageSpinner();
+    savePageStates();
+    showStoredPage();
+    showStoredspinner();
       var formData = new FormData();
       var checkboxChecked = checkbox12.checked;
       console.log('checkbox state ',checkboxChecked);
@@ -996,47 +1393,41 @@ document.addEventListener('DOMContentLoaded', function () {
               method: 'POST',
               body: formData
           })
-          .then(response => response.json())
+          .then(response => {
+            // Update fetchInProgress when fetch completes
+            fetchInProgress = false;
+            return response.json();
+          })
           .then(data => {
               console.log(data);
+              
               input8 = false;
               input9 = false;
               input10 = false;
               input11 = false;
               input12 = false;
+              page2InfoVisible = false;
+              page3InfoVisible = false;
+              page4InfoVisible = false;
+              page5InfoVisible = false;
+              page6InfoVisible = false;
               inputDiv12Visible = false;
               uploadedImage12.src = null;
               document.getElementById("ecomm-last").style.display = "block";
+              spinner12 = false;
+              page12 = false;
               // Save the current state
+              savePageSpinner();
               savePageStates();
               // Update the display based on the new state
+              showStoredspinner();
               showStoredPage();
-
-              // Perform a fetch to a new route
-        fetch('http://localhost:5000/new_route', {
-            method: 'POST',
-            body: JSON.stringify({}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Open a new tab with the extension's HTML page to display the result
-            chrome.tabs.create({
-                url: chrome.runtime.getURL('dynamic_result.html'),
-            }, function (newTab) {
-                // Introduce a delay before sending the message
-                setTimeout(function () {
-                    // Send the result to the newly created tab
-                    chrome.tabs.sendMessage(newTab.id, { action: 'displayResult', result: data.result });
-                }, 2000); // Adjust the delay as needed
-            });
-        })
-        .catch(error => console.error('Error:', error));
           })
-          .catch(error => console.error('Error:', error));
+          .catch(error => {
+              // Handle fetch error
+              fetchInProgress = false;
+              console.error('Fetch error:', error);
+          });
       } else if (checkboxChecked) {
           input8 = false;
           input9 = false;
@@ -1059,30 +1450,51 @@ document.addEventListener('DOMContentLoaded', function () {
           // Update the display based on the new state
           showStoredPage();
           // Perform a fetch to a new route
-        fetch('http://localhost:5000/new_route', {
-            method: 'POST',
-            body: JSON.stringify({}),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Open a new tab with the extension's HTML page to display the result
-            chrome.tabs.create({
-                url: chrome.runtime.getURL('dynamic_result.html'),
-            }, function (newTab) {
-                // Introduce a delay before sending the message
-                setTimeout(function () {
-                    // Send the result to the newly created tab
-                    chrome.tabs.sendMessage(newTab.id, { action: 'displayResult', result: data.result });
-                }, 2000); // Adjust the delay as needed
-            });
-        })
-        .catch(error => console.error('Error:', error));
+        
       }
-      
+      console.log('making fetch')
+        // // Make an AJAX request to fetch the results
+        // fetch('http://localhost:5000/finalresults')
+        // .then(response => response.json())
+        // .then(data => {
+        //     // Process the results and display them in a popup window
+        //     console.log(data);
+        //     const popupWindow = window.open('', 'Results',`width=${screen.width},height=${screen.height}`);
+        //     const resultList = document.createElement('ul');
+        //     // Add CSS styles to the <ul> element
+        //     resultList.style.listStyleType = 'none';
+        //     resultList.style.padding = '0';
+        //     resultList.style.margin = '0';
+        //     for (let route in data) {
+        //         const resultItem = document.createElement('li');
+        //         // Add CSS styles to the <li> elements
+        //         resultItem.style.padding = '10px';
+        //         resultItem.style.borderBottom = '1px solid #ccc';
+        //         if (Array.isArray(data[route])) {
+        //             resultItem.textContent = `${route}: ${data[route].join(', ')}`;
+        //         } else {
+        //             resultItem.textContent = `${route}: ${data[route].data}`;
+        //         }
+        //         resultList.appendChild(resultItem);
+        //     }
+        //     popupWindow.document.body.appendChild(resultList);
+        //     // Combine all results into a single array
+        //     const allResults = Object.values(data).flat();
+
+        //     const resultText = document.createElement('p');
+        //     resultText.textContent = allResults.join(', ');
+        //     popupWindow.document.body.appendChild(resultText);
+        // })
+        // .catch(error => console.error('Error:', error));
+        // Make an AJAX request to fetch the results
+      fetch('http://localhost:5000/finalresults')
+      .then(response => response.json())
+      .then(data => {
+          // Open dynamic_result.html and pass the data to it
+          const popupWindow = window.open('dynamic_result.html', '_blank'); // Open in new tab
+          popupWindow.data = data; // Pass the data to the opened window
+      })
+      .catch(error => console.error('Error:', error));
       chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
           });
