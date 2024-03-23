@@ -19,11 +19,11 @@ dynamicresults = {}
 feature_ratings = {
     'H1': {'Invalid Input': [80, 0], 'Loading Indicator': [20, 0]},
     'H2': {'Skeuomorphic web design': [50, 0], 'Process flows': [50, 0]},
-    'H3': {'Back': [25, 0], 'Cancel': [25, 0], 'Close': [25, 0], 'Undo': [25, 0]},
+    'H3': {'Back': [50, 0], 'Cancel': [50, 0], 'Close': [50, 0], 'Undo': [50, 0]},
     'H4': {'External Consistency': [50, 0], 'Form Fields': [50, 0]},
     'H5': {'Search Suggestions': [45, 0], 'Confirmation Prompts': [10, 0], 'Form Validation': [45, 0]},
     'H6': {'Search Suggestions': [60, 0], 'Tooltips': [40, 0]},
-    'H8': {'minimalistic': [100, 0], 'messy': [0, 0]},
+    'H8': {'minimalistic': [100, 0], 'messy': [50, 0]},
     'H9': {'Form-Validation': [50, 0], 'Error-msg': [50, 0]}
 }
 
@@ -153,9 +153,6 @@ def upload_e7():
 # step 1
 @app.route('/upload_i1', methods=['POST'])
 def upload_i1():
-    try:
-        file = request.files['file']
-        image_data = file.read()
 
         # Model paths and corresponding classify functions
         models_info = [
@@ -164,135 +161,48 @@ def upload_i1():
             ('H8.h5', classify_image_H8)
         ]
 
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
-    
+        return process_upload('route1', models_info, request.files['file'])
 # Step 2 
 @app.route('/upload_i2', methods=['POST'])
 def upload_i2():
-    try:
-        file = request.files['file']
-        image_data = file.read()
 
         # Model paths and corresponding classify functions
         models_info = [
             ('H5.h5', classify_image_H5),
             ('H6.h5', classify_image_H6)
         ]
+        return process_upload('route2', models_info, request.files['file'])
 
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'})  
-# step 3 - Breadcrumbs one - NEEDS TO BE CHANGED LATER
 @app.route('/upload_i3', methods=['POST'])
 def upload_i3():
-    try:
-        file = request.files['file']
-        image_data = file.read()
-
+ 
         # Model paths and corresponding classify functions
         models_info = [
             ('H6.h5', classify_image_H6),
         ]
 
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
+        return process_upload('route3', models_info, request.files['file'])
     
 # Step 4 
 @app.route('/upload_i4', methods=['POST'])
 def upload_i4():
-    try:
-        file = request.files['file']
-        image_data = file.read()
-
         # Model paths and corresponding classify functions
         models_info = [
             ('H3.h5', classify_image_H3),
         ]
 
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
-
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
+        return process_upload('route4', models_info, request.files['file'])
 # step 5 - for error message detection  
 @app.route('/upload_i5', methods=['POST'])
 def upload_i5():
-    try:
-        file = request.files['file']
-        image_data = file.read()
-
         # Model paths and corresponding classify functions
         models_info = [
             ('H9.h5', classify_image_H9),
         ]
+        return process_upload('route5', models_info, request.files['file'])
 
-        results = []
-        for model_path, classify_func in models_info:
-            model = load_model(model_path)
-            predictions = classify_func(model, image_data)  # Call the classification function directly
-            print(f'Result from {model_path}: {predictions}')
-            results.append(predictions)
 
-        # Return the results as part of the JSON response
-        return jsonify({'dynamicresult': results})
-
-    except Exception as e:
-        print(f"Error in upload: {e}")
-        return jsonify({'result': 'Error'}) 
-
-# error route 
-@app.route('/new_route', methods=['POST'])
-def new_route():
-    try:
-        print(dynamicresults)
-        return jsonify(dynamicresults)
-
-    except Exception as e:
-        print(f"Error in new_route: {e}")
-        return jsonify({'result': 'Error'})
-
-# Final route to return all results
+# Final route to return all results for ecommerce
 @app.route('/finalresults')
 def final_results():
     print(dynamicresults)
@@ -346,6 +256,71 @@ def final_results():
     print("Individual Model Ratings:")
     for model, rating in model_ratings.items():
         print(f"{model}: {rating}%")
+        
+    # Define the usability principles and their associated models
+    usability_principles = {
+        'Accessibility': ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H8', 'H9'],
+        'Efficiency': ['H1', 'H2', 'H4', 'H5', 'H6'],
+        'Memorability': ['H4', 'H6'],
+        'Learnability': ['H2', 'H3', 'H4', 'H5', 'H6']
+        
+    }
+
+    # Initialize dictionaries to store the ratings for each usability principle
+    accessibility_rating = 0
+    efficiency_rating = 0
+    memorability_rating = 0
+    learnability_rating = 0
+    # Iterate over each usability principle
+    for principle, models in usability_principles.items():
+        # Extract the individual model ratings for the current usability principle
+        principle_model_ratings = [model_ratings[model] for model in models if model in model_ratings]
+
+        # Compute the rating for the current usability principle
+        if principle_model_ratings:
+            principle_rating = sum(principle_model_ratings) / len(principle_model_ratings)
+        else:
+            principle_rating = 0  # Default to 0 if no models are present for the principle
+
+        # Round the principle rating to one decimal place
+        principle_rating = round(principle_rating, 1)
+
+        # Store the rating in the corresponding variable
+        if principle == 'Accessibility':
+            accessibility_rating = principle_rating
+        elif principle == 'Efficiency':
+            efficiency_rating = principle_rating
+        elif principle == 'Memorability':
+            memorability_rating = principle_rating
+        elif principle == 'Learnability':
+            learnability_rating = principle_rating
+
+        # # Print the rating
+        # print(f"{principle} Rating: {principle_rating}%")
+
+    # Print the ratings for all usability principles
+    print(f"Accessibility Rating: {accessibility_rating}%")
+    print(f"Efficiency Rating: {efficiency_rating}%")
+    print(f"Memorability Rating: {memorability_rating}%") 
+    print(f"Learnability Rating: {learnability_rating}%")  
+    
+    # Append the ratings for each usability principle to the model_ratings dictionary
+    model_ratings['Accessibility Rating'] = accessibility_rating
+    model_ratings['Efficiency Rating'] = efficiency_rating
+    model_ratings['Memorability Rating'] = memorability_rating
+    model_ratings['Learnability Rating'] = learnability_rating   
+
+    # Compute the overall usability score as the average of all usability principle ratings
+    overall_usability_score = (accessibility_rating + efficiency_rating + memorability_rating + learnability_rating) / 4
+
+    # Round the overall usability score to one decimal place
+    overall_usability_score = round(overall_usability_score, 1)
+
+    # Append the overall usability score to the model_ratings dictionary
+    model_ratings['Overall Usability Score'] = overall_usability_score
+
+    # Print the overall usability score
+    print(f"\nOverall Usability Score: {overall_usability_score}%")
 
     # Compute the overall score as the average of all model ratings
     overall_score = sum(model_ratings.values()) / len(model_ratings)
@@ -358,9 +333,10 @@ def final_results():
 
     # Print the overall score
     print(f"\nOverall Score: {overall_score}%")
-
+    
     # Return the model ratings and overall score as part of the JSON response
     return jsonify(model_ratings)
+
 
 
 if __name__ == '__main__':

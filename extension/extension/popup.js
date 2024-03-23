@@ -1422,12 +1422,15 @@ document.addEventListener('DOMContentLoaded', function () {
               // Update the display based on the new state
               showStoredspinner();
               showStoredPage();
+
           })
           .catch(error => {
               // Handle fetch error
               fetchInProgress = false;
               console.error('Fetch error:', error);
           });
+
+
       } else if (checkboxChecked) {
           input8 = false;
           input9 = false;
@@ -1449,6 +1452,7 @@ document.addEventListener('DOMContentLoaded', function () {
           savePageStates();
           // Update the display based on the new state
           showStoredPage();
+
           // Perform a fetch to a new route
         
       }
@@ -1495,6 +1499,7 @@ document.addEventListener('DOMContentLoaded', function () {
           popupWindow.data = data; // Pass the data to the opened window
       })
       .catch(error => console.error('Error:', error));
+
       chrome.storage.sync.clear(function() {
           console.log("Storage cleared");
           });
