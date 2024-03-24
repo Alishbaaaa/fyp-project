@@ -26,7 +26,7 @@ feature_ratings = {
     'H8': {'minimalistic': [100, 0], 'messy': [50, 0]},
     'H9': {'Form-Validation': [50, 0], 'Error-msg': [50, 0]}
 }
-
+not_present ={}
 
 def run_binary_script(url):
 
@@ -218,7 +218,8 @@ def final_results():
                     # Update the feature indicator to 1 if it's found in the current route
                     if present == 1:
                         feature_ratings[model][feature][1] = 1
-
+                    else :
+                        not_present[feature] = 0
     # Print the updated feature_ratings dictionary
     print("Updated feature_ratings:")
     print(feature_ratings)
@@ -239,7 +240,7 @@ def final_results():
             # If the feature is present, add its rating to the total rating of the model
             if present == 1:
                 total_rating += feature_rating
-        
+        # total_possible_rating = 100 
         # Calculate the model rating as a percentage
         if total_possible_rating != 0:
             model_rating = (total_rating / total_possible_rating) * 100
@@ -318,7 +319,6 @@ def final_results():
 
     # Append the overall usability score to the model_ratings dictionary
     model_ratings['Overall Usability Score'] = overall_usability_score
-
     # Print the overall usability score
     print(f"\nOverall Usability Score: {overall_usability_score}%")
 
@@ -329,10 +329,13 @@ def final_results():
     overall_score = round(overall_score, 1)
 
     # Append the overall score to the model_ratings dictionary
-    model_ratings['Overall Score'] = overall_score
+    # model_ratings['Overall Score'] = overall_score
 
     # Print the overall score
-    print(f"\nOverall Score: {overall_score}%")
+    # print(f"\nOverall Score: {overall_score}%")
+    model_ratings['Not Present'] = not_present
+    
+    print("Not Present", model_ratings['Not Present'])
     
     # Return the model ratings and overall score as part of the JSON response
     return jsonify(model_ratings)
