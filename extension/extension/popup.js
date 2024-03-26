@@ -189,18 +189,18 @@ function showStoredspinner() {
 
 
       // Show/hide pages based on stored state
-      document.getElementById("loadingSpinner1").style.display = spinner1 ? 'block' : 'none';
-      document.getElementById("loadingSpinner2").style.display = spinner2 ? 'block' : 'none';
-      document.getElementById("loadingSpinner3").style.display = spinner3 ? 'block' : 'none';
-      document.getElementById("loadingSpinner4").style.display = spinner4 ? 'block' : 'none';
-      document.getElementById("loadingSpinner5").style.display = spinner5 ? 'block' : 'none';
-      document.getElementById("loadingSpinner6").style.display = spinner6 ? 'block' : 'none';
-      document.getElementById("loadingSpinner7").style.display = spinner7 ? 'block' : 'none';
-      document.getElementById("loadingSpinner8").style.display = spinner8 ? 'block' : 'none';
-      document.getElementById("loadingSpinner9").style.display = spinner9 ? 'block' : 'none';
-      document.getElementById("loadingSpinner10").style.display = spinner10 ? 'block' : 'none';
-      document.getElementById("loadingSpinner11").style.display = spinner11 ? 'block' : 'none';
-      document.getElementById("loadingSpinner12").style.display = spinner12 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner1").style.display = spinner1 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner2").style.display = spinner2 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner3").style.display = spinner3 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner4").style.display = spinner4 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner5").style.display = spinner5 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner6").style.display = spinner6 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner7").style.display = spinner7 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner8").style.display = spinner8 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner9").style.display = spinner9 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner10").style.display = spinner10 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner11").style.display = spinner11 ? 'block' : 'none';
+    //   document.getElementById("loadingSpinner12").style.display = spinner12 ? 'block' : 'none';
       document.getElementById('image-page1').style.display = page1 ? 'block' : 'none';
       document.getElementById('image-page2').style.display = page2 ? 'block' : 'none';
       document.getElementById('image-page3').style.display = page3 ? 'block' : 'none';
@@ -422,6 +422,36 @@ document.addEventListener('DOMContentLoaded', function () {
         showStoredPage();
         showStoredspinner();
         var formData = new FormData();
+
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 70; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar1');
+        var progressBarFill = document.getElementById('progressBarFill1');
+        var progressBarText = document.getElementById('progressBarText1');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
   
         if (captureDataUrl) {
             formData.append('file', dataURLtoFile(captureDataUrl, 'screenshot.png'));
@@ -510,6 +540,36 @@ document.addEventListener('DOMContentLoaded', function () {
     showStoredPage();
     showStoredspinner();
       var formData = new FormData();
+
+      // Simulate 1 minute and 15 seconds for the upload process
+      var totalTime = 17; // in seconds
+      var intervalTime = 1000; // 1 second interval
+      
+      var progressBar = document.getElementById('progressBar2');
+      var progressBarFill = document.getElementById('progressBarFill2');
+      var progressBarText = document.getElementById('progressBarText2');
+      
+      progressBarText.style.display = 'block';
+      progressBar.style.display = 'block';
+      var startTime = new Date().getTime();
+      var endTime = startTime + totalTime * 1000;
+      
+      var updateProgress = function() {
+          var currentTime = new Date().getTime();
+          var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+          var percentComplete = (elapsedTime / totalTime) * 100;
+        
+          progressBarFill.style.width = percentComplete + '%';
+          progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+        
+          if (currentTime < endTime) {
+            setTimeout(updateProgress, intervalTime);
+          } else {
+            document.getElementById('input-1').style.display = 'block';
+          }
+      };          
+      
+      updateProgress();
   
       if (captureDataUrl) {
           formData.append('file', dataURLtoFile(captureDataUrl, 'screenshot.png'));
@@ -589,6 +649,36 @@ document.addEventListener('DOMContentLoaded', function () {
         showStoredPage();
         showStoredspinner();
         var formData = new FormData();
+
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 22; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar3');
+        var progressBarFill = document.getElementById('progressBarFill3');
+        var progressBarText = document.getElementById('progressBarText3');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
   
         if (captureDataUrl) {
             formData.append('file', dataURLtoFile(captureDataUrl, 'screenshot.png'));
@@ -667,6 +757,36 @@ document.addEventListener('DOMContentLoaded', function () {
     showStoredPage();
     showStoredspinner();
       var formData = new FormData();
+
+      // Simulate 1 minute and 15 seconds for the upload process
+      var totalTime = 30; // in seconds
+      var intervalTime = 1000; // 1 second interval
+      
+      var progressBar = document.getElementById('progressBar4');
+      var progressBarFill = document.getElementById('progressBarFill4');
+      var progressBarText = document.getElementById('progressBarText4');
+      
+      progressBarText.style.display = 'block';
+      progressBar.style.display = 'block';
+      var startTime = new Date().getTime();
+      var endTime = startTime + totalTime * 1000;
+      
+      var updateProgress = function() {
+          var currentTime = new Date().getTime();
+          var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+          var percentComplete = (elapsedTime / totalTime) * 100;
+        
+          progressBarFill.style.width = percentComplete + '%';
+          progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+        
+          if (currentTime < endTime) {
+            setTimeout(updateProgress, intervalTime);
+          } else {
+            document.getElementById('input-1').style.display = 'block';
+          }
+      };          
+      
+      updateProgress();
   
       if (captureDataUrl4) {
           formData.append('file', dataURLtoFile(captureDataUrl4, 'screenshot.png'));
@@ -747,6 +867,36 @@ document.addEventListener('DOMContentLoaded', function () {
     showStoredspinner();
       var formData = new FormData();
   
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 35; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar5');
+        var progressBarFill = document.getElementById('progressBarFill5');
+        var progressBarText = document.getElementById('progressBarText5');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
+
       if (captureDataUrl5) {
           formData.append('file', dataURLtoFile(captureDataUrl5, 'screenshot.png'));
       } else if (selectedFile5) {
@@ -827,6 +977,36 @@ document.addEventListener('DOMContentLoaded', function () {
     showStoredspinner();
       var formData = new FormData();
   
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 45; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar6');
+        var progressBarFill = document.getElementById('progressBarFill6');
+        var progressBarText = document.getElementById('progressBarText6');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
+
       if (captureDataUrl6) {
           formData.append('file', dataURLtoFile(captureDataUrl6, 'screenshot.png'));
       } else if (selectedFile6) {
@@ -900,6 +1080,35 @@ document.addEventListener('DOMContentLoaded', function () {
     showStoredPage();
     showStoredspinner();
       var formData = new FormData();
+      // Simulate 1 minute and 15 seconds for the upload process
+      var totalTime = 2; // in seconds
+      var intervalTime = 1000; // 1 second interval
+      
+      var progressBar = document.getElementById('progressBar7');
+      var progressBarFill = document.getElementById('progressBarFill7');
+      var progressBarText = document.getElementById('progressBarText7');
+      
+      progressBarText.style.display = 'block';
+      progressBar.style.display = 'block';
+      var startTime = new Date().getTime();
+      var endTime = startTime + totalTime * 1000;
+      
+      var updateProgress = function() {
+          var currentTime = new Date().getTime();
+          var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+          var percentComplete = (elapsedTime / totalTime) * 100;
+        
+          progressBarFill.style.width = percentComplete + '%';
+          progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+        
+          if (currentTime < endTime) {
+            setTimeout(updateProgress, intervalTime);
+          } else {
+            document.getElementById('input-1').style.display = 'block';
+          }
+      };          
+      
+      updateProgress();
       var checkboxChecked = checkbox7.checked;
       console.log('checkbox state ',checkboxChecked);
   
@@ -1035,6 +1244,36 @@ document.addEventListener('DOMContentLoaded', function () {
         showStoredPage();
         showStoredspinner();
         var formData = new FormData();
+
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 70; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar8');
+        var progressBarFill = document.getElementById('progressBarFill8');
+        var progressBarText = document.getElementById('progressBarText8');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
   
         if (captureDataUrl8) {
             formData.append('file', dataURLtoFile(captureDataUrl8, 'screenshot.png'));
@@ -1114,6 +1353,36 @@ document.addEventListener('DOMContentLoaded', function () {
         showStoredPage();
         showStoredspinner();
         var formData = new FormData();
+
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 19; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar9');
+        var progressBarFill = document.getElementById('progressBarFill9');
+        var progressBarText = document.getElementById('progressBarText9');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
   
         if (captureDataUrl9) {
             formData.append('file', dataURLtoFile(captureDataUrl9, 'screenshot.png'));
@@ -1193,6 +1462,36 @@ document.addEventListener('DOMContentLoaded', function () {
         showStoredPage();
         showStoredspinner();
         var formData = new FormData();
+
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 8; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar10');
+        var progressBarFill = document.getElementById('progressBarFill10');
+        var progressBarText = document.getElementById('progressBarText10');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
   
         if (captureDataUrl10) {
             formData.append('file', dataURLtoFile(captureDataUrl10, 'screenshot.png'));
@@ -1272,6 +1571,36 @@ document.addEventListener('DOMContentLoaded', function () {
         showStoredPage();
         showStoredspinner();
         var formData = new FormData();
+
+        // Simulate 1 minute and 15 seconds for the upload process
+        var totalTime = 8; // in seconds
+        var intervalTime = 1000; // 1 second interval
+        
+        var progressBar = document.getElementById('progressBar11');
+        var progressBarFill = document.getElementById('progressBarFill11');
+        var progressBarText = document.getElementById('progressBarText11');
+        
+        progressBarText.style.display = 'block';
+        progressBar.style.display = 'block';
+        var startTime = new Date().getTime();
+        var endTime = startTime + totalTime * 1000;
+        
+        var updateProgress = function() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+            var percentComplete = (elapsedTime / totalTime) * 100;
+          
+            progressBarFill.style.width = percentComplete + '%';
+            progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+          
+            if (currentTime < endTime) {
+              setTimeout(updateProgress, intervalTime);
+            } else {
+              document.getElementById('input-1').style.display = 'block';
+            }
+        };          
+        
+        updateProgress();
   
         if (captureDataUrl11) {
             formData.append('file', dataURLtoFile(captureDataUrl11, 'screenshot.png'));
@@ -1346,6 +1675,35 @@ document.addEventListener('DOMContentLoaded', function () {
     showStoredPage();
     showStoredspinner();
       var formData = new FormData();
+      // Simulate 1 minute and 15 seconds for the upload process
+      var totalTime = 2; // in seconds
+      var intervalTime = 1000; // 1 second interval
+      
+      var progressBar = document.getElementById('progressBar12');
+      var progressBarFill = document.getElementById('progressBarFill12');
+      var progressBarText = document.getElementById('progressBarText12');
+      
+      progressBarText.style.display = 'block';
+      progressBar.style.display = 'block';
+      var startTime = new Date().getTime();
+      var endTime = startTime + totalTime * 1000;
+      
+      var updateProgress = function() {
+          var currentTime = new Date().getTime();
+          var elapsedTime = Math.min(totalTime, (currentTime - startTime) / 1000);
+          var percentComplete = (elapsedTime / totalTime) * 100;
+        
+          progressBarFill.style.width = percentComplete + '%';
+          progressBarText.innerText = Math.round(percentComplete) + '%'; // Update text with percentage
+        
+          if (currentTime < endTime) {
+            setTimeout(updateProgress, intervalTime);
+          } else {
+            document.getElementById('input-1').style.display = 'block';
+          }
+      };          
+      
+      updateProgress();
       var checkboxChecked = checkbox12.checked;
       console.log('checkbox state ',checkboxChecked);
   
