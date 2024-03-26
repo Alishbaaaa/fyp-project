@@ -26,7 +26,7 @@ feature_ratings = {
     'H8': {'minimalistic': [100, 0], 'messy': [50, 0]},
     'H9': {'Form-Validation': [50, 0], 'Error-msg': [50, 0]}
 }
-not_present ={}
+# not_present ={}
 
 def run_binary_script(url):
 
@@ -218,15 +218,21 @@ def final_results():
                     # Update the feature indicator to 1 if it's found in the current route
                     if present == 1:
                         feature_ratings[model][feature][1] = 1
-                    else :
-                        not_present[feature] = 0
     # Print the updated feature_ratings dictionary
     print("Updated feature_ratings:")
     print(feature_ratings)
 
+    features_with_0 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 0]
+    features_with_1 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 1]
+
+    print("Features with a rating of 0:")
+    print(features_with_0)
+
+    print("\nFeatures with a rating of 1:")
+    print(features_with_1)
+
     # Initialize a dictionary to store the model ratings
     model_ratings = {}
-
     # Iterate over each model in the feature_ratings dictionary
     for model, features in feature_ratings.items():
         total_rating = 0  # Initialize the total rating for the model
@@ -333,9 +339,11 @@ def final_results():
 
     # Print the overall score
     # print(f"\nOverall Score: {overall_score}%")
-    model_ratings['Not Present'] = not_present
+    # model_ratings['Not Present'] = not_present
     
-    print("Not Present", model_ratings['Not Present'])
+    # print("Not Present", model_ratings['Not Present'])
+    model_ratings['Not Present'] =features_with_0
+    model_ratings['Present'] = features_with_1
     
     # Return the model ratings and overall score as part of the JSON response
     return jsonify(model_ratings)
