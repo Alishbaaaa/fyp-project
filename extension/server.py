@@ -157,8 +157,8 @@ def upload_i1():
         # Model paths and corresponding classify functions
         models_info = [
             ('H2.h5', classify_image_H2),
-            ('H4.h5', classify_image_H4),
-            ('H8.h5', classify_image_H8)
+            # ('H4.h5', classify_image_H4),
+            # ('H8.h5', classify_image_H8)
         ]
 
         return process_upload('route1', models_info, request.files['file'])
@@ -168,7 +168,7 @@ def upload_i2():
 
         # Model paths and corresponding classify functions
         models_info = [
-            ('H5.h5', classify_image_H5),
+            # ('H5.h5', classify_image_H5),
             ('H6.h5', classify_image_H6)
         ]
         return process_upload('route2', models_info, request.files['file'])
@@ -221,15 +221,33 @@ def final_results():
     # Print the updated feature_ratings dictionary
     print("Updated feature_ratings:")
     print(feature_ratings)
+    
+    evaluation_result = {}
 
-    features_with_0 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 0]
-    features_with_1 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 1]
+    # Iterate over each model in the feature_ratings dictionary
+    for model, features in feature_ratings.items():
+        # Create a new entry in evaluation_result for the current model
+        evaluation_result[model] = {}
+        
+        # Iterate over each feature in the current model
+        for feature, rating_list in features.items():
+            # Extract the rating from the rating list
+            rating = rating_list[1]
+            # Assign the rating to the feature in the evaluation_result dictionary
+            evaluation_result[model][feature] = rating
 
-    print("Features with a rating of 0:")
-    print(features_with_0)
+    # Print the evaluation_result dictionary
+    print("evaluation_result:")
+    print(evaluation_result)
 
-    print("\nFeatures with a rating of 1:")
-    print(features_with_1)
+    # features_with_0 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 0]
+    # features_with_1 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 1]
+
+    # print("Features with a rating of 0:")
+    # print(features_with_0)
+
+    # print("\nFeatures with a rating of 1:")
+    # print(features_with_1)
 
     # Initialize a dictionary to store the model ratings
     model_ratings = {}
@@ -342,8 +360,9 @@ def final_results():
     # model_ratings['Not Present'] = not_present
     
     # print("Not Present", model_ratings['Not Present'])
-    model_ratings['Not Present'] =features_with_0
-    model_ratings['Present'] = features_with_1
+    # model_ratings['Not Present'] =features_with_0
+    # model_ratings['Present'] = features_with_1
+    model_ratings['Evaluation_Result'] = evaluation_result
     
     # Return the model ratings and overall score as part of the JSON response
     return jsonify(model_ratings)

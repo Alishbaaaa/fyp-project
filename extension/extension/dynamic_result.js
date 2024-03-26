@@ -1,74 +1,60 @@
 // Retrieve the data passed from popup.js
 const data = window.data;
 
+// Print the evaluation result on the terminal/console
+console.log("Evaluation Result:");
+console.log(data['Evaluation_Result']);
 // Process the results and display them in dynamic_result.html
 // const resultList = document.getElementById('resultList');
 
 // Loop through each model in the data
-for (let model in data) {
-    const modelItem = document.createElement('li');
-    if (model === 'Not Present') {
-        modelItem.textContent = "Suggestions for Improving the User Interface:";
-        const notPresentList = document.createElement('ul');
-        // Loop through each feature in the not_present dictionary
-        let count = 0;
-        for (let feature in data[model]) {
-            const featureItem = document.createElement('li');
-            // featureItem.textContent = `${feature}: ${data[model][feature]}`;
-            if (feature === 'Loading Indicator') {
-                featureItem.textContent += " Consider improving the design of loading indicators to make them more noticeable and easily understood by users.";
-            } else if (feature === 'Process flows') {
-                featureItem.textContent += " Ensure that the user interface reflects the logical flow of tasks, making it easier for users to understand and navigate.";
-            } else if (feature === 'Back' || feature === 'Cancel' || feature === 'Close' || feature === 'Undo') {
-                count++;
-            } else if (feature === 'External Consistency') {
-                featureItem.textContent += " Maintain consistency in the layout and behavior of form elements throughout the application to ensure external consistency.";
-            } else if (feature === 'Skeuomorphic web design') {
-                featureItem.textContent += " Ensure that design elements and interactions adhere to established standards across the application.";
-            } else if (feature === 'Search Suggestions') {
-                featureItem.textContent += " Improve the visibility and usability of search suggestions to help users avoid errors in their search queries.";
-            } else if (feature === 'Confirmation Prompts') {
-                featureItem.textContent += " Ensure that confirmation prompts are clear and provide enough information for users to make informed decisions.";
-            } else if (feature === 'Form Validation') {
-                featureItem.textContent += " Provide real-time feedback to users through form validation to prevent errors before they occur.";
-            } else if (feature === 'Tooltips') {
-                featureItem.textContent += " Use tooltips judiciously to provide additional information without overwhelming the user.";
-            } else if (feature === 'messy') {
-                featureItem.textContent += " Simplify the layout, remove clutter, and improve the visual hierarchy to create a more pleasing aesthetic.";
-            } else if (feature === 'Invalid Input') {
-                featureItem.textContent += " Provide clear feedback on how to correct errors and prevent them from recurring for invalid inputs.";
-            } else if (feature === 'Error-msg') {
-                featureItem.textContent += " Ensure that error messages are informative, actionable, and help users understand the problem and how to fix it.";
-            }
-            if (count>=2) {
-                count = 0;
-                featureItem.textContent += " To enhance user control and freedom, consider adding more back, cancel, undo, and close buttons.";
-            }
-            notPresentList.appendChild(featureItem);
-        }
-        modelItem.appendChild(notPresentList);
-    }
-    //  else if (model === 'H1' || model === 'H2' || model === 'H3' || model === 'H4' || model === 'H5' || model === 'H6' || model === 'H8' || model === 'H9' ) {
-    //     // Create a bar graph for models 'H1' and 'H2' only
-    //     const bar = document.createElement('div');
-    //     bar.classList.add('bar');
-    //     bar.style.width = `${data[model]}%`;
-
-    //     // Create a span element for the text content
-    //     const textSpan = document.createElement('span');
-    //     textSpan.textContent = `${model}: `;
-
-    //     // Append the text span and the bar to the modelItem
-    //     modelItem.appendChild(textSpan);
-    //     modelItem.appendChild(bar);
-    // } else {
-    //     // Display the model and its score without a bar graph
-    //     modelItem.textContent = `${model}: ${data[model]}%`;
-    // }
-    // resultList.appendChild(modelItem); // Append the model item to the result list
-    // resultList.appendChild(document.createElement('br')); // Add a line break
-}
-
+//this is for suggestions
+// for (let model in data) {
+//     const modelItem = document.createElement('li');
+//     if (model === 'Not Present') {
+//         modelItem.textContent = "Suggestions for Improving the User Interface:";
+//         const notPresentList = document.createElement('ul');
+//         // Loop through each feature in the not_present dictionary
+//         let count = 0;
+//         for (let feature in data[model]) {
+//             const featureItem = document.createElement('li');
+//             // featureItem.textContent = `${feature}: ${data[model][feature]}`;
+//             if (feature === 'Loading Indicator') {
+//                 featureItem.textContent += " Consider improving the design of loading indicators to make them more noticeable and easily understood by users.";
+//             } else if (feature === 'Process flows') {
+//                 featureItem.textContent += " Ensure that the user interface reflects the logical flow of tasks, making it easier for users to understand and navigate.";
+//             } else if (feature === 'Back' || feature === 'Cancel' || feature === 'Close' || feature === 'Undo') {
+//                 count++;
+//             } else if (feature === 'External Consistency') {
+//                 featureItem.textContent += " Maintain consistency in the layout and behavior of form elements throughout the application to ensure external consistency.";
+//             } else if (feature === 'Skeuomorphic web design') {
+//                 featureItem.textContent += " Ensure that design elements and interactions adhere to established standards across the application.";
+//             } else if (feature === 'Search Suggestions') {
+//                 featureItem.textContent += " Improve the visibility and usability of search suggestions to help users avoid errors in their search queries.";
+//             } else if (feature === 'Confirmation Prompts') {
+//                 featureItem.textContent += " Ensure that confirmation prompts are clear and provide enough information for users to make informed decisions.";
+//             } else if (feature === 'Form Validation') {
+//                 featureItem.textContent += " Provide real-time feedback to users through form validation to prevent errors before they occur.";
+//             } else if (feature === 'Tooltips') {
+//                 featureItem.textContent += " Use tooltips judiciously to provide additional information without overwhelming the user.";
+//             } else if (feature === 'messy') {
+//                 featureItem.textContent += " Simplify the layout, remove clutter, and improve the visual hierarchy to create a more pleasing aesthetic.";
+//             } else if (feature === 'Invalid Input') {
+//                 featureItem.textContent += " Provide clear feedback on how to correct errors and prevent them from recurring for invalid inputs.";
+//             } else if (feature === 'Error-msg') {
+//                 featureItem.textContent += " Ensure that error messages are informative, actionable, and help users understand the problem and how to fix it.";
+//             }
+//             if (count>=2) {
+//                 count = 0;
+//                 featureItem.textContent += " To enhance user control and freedom, consider adding more back, cancel, undo, and close buttons.";
+//             }
+//             notPresentList.appendChild(featureItem);
+//         }
+//         modelItem.appendChild(notPresentList);
+//     }
+    
+// }
+//////////////////////////PROGRESS BARS/////////////////////
 // Define the mapping of models to heuristic names
 const heuristicNames = {
     'H1': 'Visibility of System Status',
@@ -81,7 +67,7 @@ const heuristicNames = {
     'H9': 'Error Diagnosis and Recovery'
 };
 
-// Update the bar graph for each model
+
 for (let model in data) {
     if (heuristicNames[model]) {
         // Find the corresponding row based on the heuristic name
@@ -96,6 +82,25 @@ for (let model in data) {
         if (row) {
             const barInner = row.querySelector('.bar-inner');
             barInner.dataset.percent = `${data[model]}%`;
+
+            // Add feature names with their existence status as tooltips
+            const featuresTooltip = document.createElement('div');
+            featuresTooltip.classList.add('tooltip-features');
+            for (const feature in data['Evaluation_Result'][model]) {
+                const status = data['Evaluation_Result'][model][feature];
+                // Create an img element based on the status value
+                const imgSrc = status === 1 ? 'tick.png' : 'wrong.png';
+                // Wrap text and image in a single div
+                const featureDiv = document.createElement('div');
+                featureDiv.innerHTML = `${feature} <img src="${imgSrc}" alt="${feature}">`;
+                featuresTooltip.appendChild(featureDiv);
+            }
+
+            // Position the tooltip relative to the bar
+            featuresTooltip.style.top = `${-barInner.offsetHeight}px`; // Position above the bar
+            featuresTooltip.style.left = 0; // Align with the left edge of the bar
+
+            barInner.appendChild(featuresTooltip);
         }
     }
 }
@@ -103,13 +108,14 @@ for (let model in data) {
 (function(document) {
     var _bars = [].slice.call(document.querySelectorAll('.bar-inner'));
     _bars.map(function(bar, index) {
-      setTimeout(function() {
-          bar.style.width = bar.dataset.percent;
-      }, index * 1000);
-      
+        setTimeout(function() {
+            bar.style.width = bar.dataset.percent;
+        }, index * 1000);
     });
-  })(document)
+})(document);
 
+
+/////////////////////OVERALL SCORE//////////////////////////
   let progressBar = document.querySelector(".circular-progress");
   let valueContainer = document.querySelector(".value-container");
   
@@ -135,12 +141,13 @@ let progress = setInterval(() => {
         #37ADBD ${progressValue * 3.6}deg,
         #ffffff ${progressValue * 3.6}deg
     )`; // Incrementing the end angle by 0.1 degree
-    console.log(progressValue);
+    // console.log(progressValue);
     if (progressValue >= progressEndValue) {
         clearInterval(progress);
     }
 }, speed);
 
+/////////////////////USABILITY BARS///////////////////////
 // Update the progress bars for Accessibility, Efficiency, Memorability, and Learnability
 const accessibilityRating = data['Accessibility Rating'];
 const efficiencyRating = data['Efficiency Rating'];

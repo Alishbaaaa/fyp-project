@@ -115,7 +115,42 @@ body {
     font-weight: 500;
     line-height: 30px;
   }
+
+/* Add tooltip style */
+.tooltip-features {
+  display: none;
+  position: absolute;
+  top: -40px; /* Adjust the position as needed */
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 999; /* Ensure the tooltip appears above other elements */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Style for images within the tooltip */
+.tooltip-features img {
+  width: 15px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 5px; /* Adjust spacing between image and text */
+}
+
+/* Align text to the left */
+.tooltip-features div {
+  text-align: left;
+}
+
+/* Show tooltip on hover */
+.bar-inner:hover .tooltip-features {
+  display: block;
+}
+
+
   
+
 .container {
     width: 100%;
     height: auto;
