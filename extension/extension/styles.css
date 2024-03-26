@@ -66,24 +66,297 @@ button {
   position: relative;
 }
 
-.loadingSpinner {
+
+#progressBar1 {
+  position: relative;
   width: 100%;
-  align-items: center;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill1 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container1 {
   display: flex;
-  padding: 5px;
+  align-items: center;
 }
 
-.loadingSpinner img {
-  width: 50px;
-  height: 50px;
-  justify-content: center;
-  margin-right: 10px; /* Add margin to separate the image from the text */
+#progressBarText1 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
 }
 
-.loadingSpinner .text {
-  vertical-align: middle;
+#progressBar2 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
+#progressBarFill2 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container2 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText2 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar3 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill3 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container3 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText3 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar4 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill4 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container4 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText4 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar5 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill5 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container5 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText5 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar6 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill6 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container6 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText6 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar7 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill7 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container7 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText7 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar8 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill8 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container8 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText8 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+#progressBar9 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill9 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container9 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText9 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+
+#progressBar10 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill10 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container10 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText10 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+
+#progressBar11 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill11 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container11 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText11 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
+
+
+#progressBar12 {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#progressBarFill12 {
+  height: 100%;
+  background-color: green;
+  border-radius: 5px;
+}
+.progress-container12 {
+  display: flex;
+  align-items: center;
+}
+
+#progressBarText12 {
+  margin:10px 15px 0 15px; /* Adjust spacing between progress bar and text */
+  font-size: 12px;
+}
 
 #input-1 {
   font-family: sans-serif;
