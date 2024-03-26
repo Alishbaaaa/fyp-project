@@ -2,7 +2,7 @@
 const data = window.data;
 
 // Process the results and display them in dynamic_result.html
-const resultList = document.getElementById('resultList');
+// const resultList = document.getElementById('resultList');
 
 // Loop through each model in the data
 for (let model in data) {
@@ -109,3 +109,57 @@ for (let model in data) {
       
     });
   })(document)
+
+  let progressBar = document.querySelector(".circular-progress");
+  let valueContainer = document.querySelector(".value-container");
+  
+  // Retrieve the Overall Usability Score from the data
+const overallScore = data['Overall Usability Score'];
+console.log(overallScore);
+
+// Set the initial progress value to 0
+let progressValue = 0;
+
+// Set the progressEndValue to the Overall Usability Score
+let progressEndValue = overallScore;
+
+// Calculate the speed of the progress animation
+let speed = 20;
+
+// Define the progress update function
+let progress = setInterval(() => {
+    progressValue += 0.1;
+    progressValue = parseFloat(progressValue.toFixed(1)); // Convert to fixed number of decimal places
+    valueContainer.textContent = `${progressValue}%`;
+    progressBar.style.background = `conic-gradient(
+        #37ADBD ${progressValue * 3.6}deg,
+        #ffffff ${progressValue * 3.6}deg
+    )`; // Incrementing the end angle by 0.1 degree
+    console.log(progressValue);
+    if (progressValue >= progressEndValue) {
+        clearInterval(progress);
+    }
+}, speed);
+
+// Update the progress bars for Accessibility, Efficiency, Memorability, and Learnability
+const accessibilityRating = data['Accessibility Rating'];
+const efficiencyRating = data['Efficiency Rating'];
+const memorabilityRating = data['Memorability Rating'];
+const learnabilityRating = data['Learnability Rating'];
+
+updateProgressBar('.Accessibility', accessibilityRating);
+updateProgressBar('.Efficiency', efficiencyRating);
+updateProgressBar('.Memorability', memorabilityRating);
+updateProgressBar('.Learnability', learnabilityRating);
+
+function updateProgressBar(selector, rating) {
+    const progressBar = document.querySelector(selector);
+    if (!progressBar) return;
+
+    // Convert the decimal percentage to a whole number
+    const percentage = parseInt(rating);
+
+    // Set the --value property and aria-valuenow attribute
+    progressBar.style.setProperty('--value', `${percentage}`);
+    progressBar.setAttribute('aria-valuenow', `${percentage}`);
+}
