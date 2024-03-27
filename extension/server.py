@@ -157,8 +157,8 @@ def upload_i1():
         # Model paths and corresponding classify functions
         models_info = [
             ('H2.h5', classify_image_H2),
-            # ('H4.h5', classify_image_H4),
-            # ('H8.h5', classify_image_H8)
+            ('H4.h5', classify_image_H4),
+            ('H8.h5', classify_image_H8)
         ]
 
         return process_upload('route1', models_info, request.files['file'])
@@ -168,7 +168,7 @@ def upload_i2():
 
         # Model paths and corresponding classify functions
         models_info = [
-            # ('H5.h5', classify_image_H5),
+            ('H5.h5', classify_image_H5),
             ('H6.h5', classify_image_H6)
         ]
         return process_upload('route2', models_info, request.files['file'])
