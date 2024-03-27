@@ -240,14 +240,14 @@ def final_results():
     print("evaluation_result:")
     print(evaluation_result)
 
-    # features_with_0 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 0]
-    # features_with_1 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 1]
+    features_with_0 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 0]
+    features_with_1 = [feature_name for features in feature_ratings.values() for feature_name, (_, rating) in features.items() if rating == 1]
 
-    # print("Features with a rating of 0:")
-    # print(features_with_0)
+    print("Features with a rating of 0:")
+    print(features_with_0)
 
-    # print("\nFeatures with a rating of 1:")
-    # print(features_with_1)
+    print("\nFeatures with a rating of 1:")
+    print(features_with_1)
 
     # Initialize a dictionary to store the model ratings
     model_ratings = {}
@@ -288,7 +288,6 @@ def final_results():
         'Efficiency': ['H1', 'H2', 'H4', 'H5', 'H6'],
         'Memorability': ['H4', 'H6'],
         'Learnability': ['H2', 'H3', 'H4', 'H5', 'H6']
-        
     }
 
     # Initialize dictionaries to store the ratings for each usability principle
@@ -360,8 +359,8 @@ def final_results():
     # model_ratings['Not Present'] = not_present
     
     # print("Not Present", model_ratings['Not Present'])
-    # model_ratings['Not Present'] =features_with_0
-    # model_ratings['Present'] = features_with_1
+    model_ratings['Not Present'] =features_with_0
+    model_ratings['Present'] = features_with_1
     model_ratings['Evaluation_Result'] = evaluation_result
     
     # Return the model ratings and overall score as part of the JSON response
