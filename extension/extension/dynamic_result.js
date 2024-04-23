@@ -4,6 +4,268 @@ const data = window.data;
 // Print the evaluation result on the terminal/console
 console.log("Evaluation Result:");
 console.log(data['Evaluation_Result']);
+
+const suggestions = document.querySelector('.box1-value');
+suggestions.innerHTML = ''; // Clear existing content
+let count = 0; // Initialize count variable
+data['Not Present'].forEach((feature, index) => {
+  const suggestionItem = document.createElement('li'); // Changed ol to li as it seems more appropriate for a list item
+  suggestionItem.textContent = (index + 1) + '. ';
+
+  // Add suggestions based on feature
+  if (feature === 'Loading Indicator') {
+    suggestionItem.textContent = "Consider improving the design of loading indicators to make them more noticeable and easily understood by users.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'loadingindicator.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+
+    
+    
+  } else if (feature === 'Process flows') {
+    suggestionItem.textContent += "Ensure that the user interface reflects the logical flow of tasks, making it easier for users to understand and navigate.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'processflows.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if ((feature === 'Back' || feature === 'Cancel' || feature === 'Close' || feature === 'Undo') && count === 0) {
+    count++;
+    suggestionItem.textContent += "To enhance user control and freedom, consider adding more back, cancel, undo, and close buttons.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'button.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'External Consistency') {
+    suggestionItem.textContent += "Maintain consistency in the layout and behavior of form elements throughout the application to ensure external consistency.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'externalconsistency.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'Skeuomorphic web design') {
+    suggestionItem.textContent += "Ensure that design elements and interactions adhere to established standards across the application.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'skeuomorphicwebdesign.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'Search Suggestions') {
+    suggestionItem.textContent += "Improve the visibility and usability of search suggestions to help users avoid errors in their search queries.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'searchsuggestions.jpg'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'Confirmation Prompts') {
+    suggestionItem.textContent += "Ensure that confirmation prompts are clear and provide enough information for users to make informed decisions.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'confirmationprompts.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'Form Validation') {
+    suggestionItem.textContent += "Provide real-time feedback to users through form validation to prevent errors before they occur.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'formvalidation.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'Tooltips') {
+    suggestionItem.textContent += "Use tooltips judiciously to provide additional information without overwhelming the user.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'tooltips.jpg'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'messy') {
+    suggestionItem.textContent += "Simplify the layout, remove clutter, and improve the visual hierarchy to create a more pleasing aesthetic.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'messy.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else if (feature === 'Invalid Input') {
+    suggestionItem.textContent += "Provide clear feedback on how to correct errors and prevent them from recurring for invalid inputs.";
+     // Create an image element for the hover effect
+     const hoverImage = document.createElement('img');
+     hoverImage.src = 'invalidinput.png'; // Replace with your image URL
+     hoverImage.classList.add('hover-image');
+     hoverImage.style.display = 'none'; // Initially hide the image
+ 
+     // Append the hover image to the suggestion item
+     suggestionItem.appendChild(hoverImage);
+ 
+     // Add event listener for mouseover to show the hover image
+     suggestionItem.addEventListener('mouseover', () => {
+       hoverImage.style.display = 'block';
+     });
+ 
+     // Add event listener for mouseout to hide the hover image
+     suggestionItem.addEventListener('mouseout', () => {
+       hoverImage.style.display = 'none';
+     });
+  } else if (feature === 'Error-msg') {
+    suggestionItem.textContent += "Ensure that error messages are informative, actionable, and help users understand the problem and how to fix it.";
+    // Create an image element for the hover effect
+    const hoverImage = document.createElement('img');
+    hoverImage.src = 'errormsg.png'; // Replace with your image URL
+    hoverImage.classList.add('hover-image');
+    hoverImage.style.display = 'none'; // Initially hide the image
+
+    // Append the hover image to the suggestion item
+    suggestionItem.appendChild(hoverImage);
+
+    // Add event listener for mouseover to show the hover image
+    suggestionItem.addEventListener('mouseover', () => {
+      hoverImage.style.display = 'block';
+    });
+
+    // Add event listener for mouseout to hide the hover image
+    suggestionItem.addEventListener('mouseout', () => {
+      hoverImage.style.display = 'none';
+    });
+  } else {
+    index--; // Adjust index if the feature is not recognized
+    return; // Exit the current iteration
+  }
+
+  suggestions.appendChild(suggestionItem);
+});
+
+
 // Process the results and display them in dynamic_result.html
 // const resultList = document.getElementById('resultList');
 
@@ -18,36 +280,36 @@ console.log(data['Evaluation_Result']);
 //         let count = 0;
 //         for (let feature in data[model]) {
 //             const featureItem = document.createElement('li');
-//             // featureItem.textContent = `${feature}: ${data[model][feature]}`;
-//             if (feature === 'Loading Indicator') {
-//                 featureItem.textContent += " Consider improving the design of loading indicators to make them more noticeable and easily understood by users.";
-//             } else if (feature === 'Process flows') {
-//                 featureItem.textContent += " Ensure that the user interface reflects the logical flow of tasks, making it easier for users to understand and navigate.";
-//             } else if (feature === 'Back' || feature === 'Cancel' || feature === 'Close' || feature === 'Undo') {
-//                 count++;
-//             } else if (feature === 'External Consistency') {
-//                 featureItem.textContent += " Maintain consistency in the layout and behavior of form elements throughout the application to ensure external consistency.";
-//             } else if (feature === 'Skeuomorphic web design') {
-//                 featureItem.textContent += " Ensure that design elements and interactions adhere to established standards across the application.";
-//             } else if (feature === 'Search Suggestions') {
-//                 featureItem.textContent += " Improve the visibility and usability of search suggestions to help users avoid errors in their search queries.";
-//             } else if (feature === 'Confirmation Prompts') {
-//                 featureItem.textContent += " Ensure that confirmation prompts are clear and provide enough information for users to make informed decisions.";
-//             } else if (feature === 'Form Validation') {
-//                 featureItem.textContent += " Provide real-time feedback to users through form validation to prevent errors before they occur.";
-//             } else if (feature === 'Tooltips') {
-//                 featureItem.textContent += " Use tooltips judiciously to provide additional information without overwhelming the user.";
-//             } else if (feature === 'messy') {
-//                 featureItem.textContent += " Simplify the layout, remove clutter, and improve the visual hierarchy to create a more pleasing aesthetic.";
-//             } else if (feature === 'Invalid Input') {
-//                 featureItem.textContent += " Provide clear feedback on how to correct errors and prevent them from recurring for invalid inputs.";
-//             } else if (feature === 'Error-msg') {
-//                 featureItem.textContent += " Ensure that error messages are informative, actionable, and help users understand the problem and how to fix it.";
-//             }
-//             if (count>=2) {
-//                 count = 0;
-//                 featureItem.textContent += " To enhance user control and freedom, consider adding more back, cancel, undo, and close buttons.";
-//             }
+            // featureItem.textContent = `${feature}: ${data[model][feature]}`;
+            // if (feature === 'Loading Indicator') {
+            //     featureItem.textContent += " Consider improving the design of loading indicators to make them more noticeable and easily understood by users.";
+            // } else if (feature === 'Process flows') {
+            //     featureItem.textContent += " Ensure that the user interface reflects the logical flow of tasks, making it easier for users to understand and navigate.";
+            // } else if (feature === 'Back' || feature === 'Cancel' || feature === 'Close' || feature === 'Undo') {
+            //     count++;
+            // } else if (feature === 'External Consistency') {
+            //     featureItem.textContent += " Maintain consistency in the layout and behavior of form elements throughout the application to ensure external consistency.";
+            // } else if (feature === 'Skeuomorphic web design') {
+            //     featureItem.textContent += " Ensure that design elements and interactions adhere to established standards across the application.";
+            // } else if (feature === 'Search Suggestions') {
+            //     featureItem.textContent += " Improve the visibility and usability of search suggestions to help users avoid errors in their search queries.";
+            // } else if (feature === 'Confirmation Prompts') {
+            //     featureItem.textContent += " Ensure that confirmation prompts are clear and provide enough information for users to make informed decisions.";
+            // } else if (feature === 'Form Validation') {
+            //     featureItem.textContent += " Provide real-time feedback to users through form validation to prevent errors before they occur.";
+            // } else if (feature === 'Tooltips') {
+            //     featureItem.textContent += " Use tooltips judiciously to provide additional information without overwhelming the user.";
+            // } else if (feature === 'messy') {
+            //     featureItem.textContent += " Simplify the layout, remove clutter, and improve the visual hierarchy to create a more pleasing aesthetic.";
+            // } else if (feature === 'Invalid Input') {
+            //     featureItem.textContent += " Provide clear feedback on how to correct errors and prevent them from recurring for invalid inputs.";
+            // } else if (feature === 'Error-msg') {
+            //     featureItem.textContent += " Ensure that error messages are informative, actionable, and help users understand the problem and how to fix it.";
+            // }
+            // if (count>=2) {
+            //     count = 0;
+            //     featureItem.textContent += " To enhance user control and freedom, consider adding more back, cancel, undo, and close buttons.";
+            // }
 //             notPresentList.appendChild(featureItem);
 //         }
 //         modelItem.appendChild(notPresentList);
